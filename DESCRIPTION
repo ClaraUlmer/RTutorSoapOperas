@@ -1,0 +1,11 @@
+Package: RTutorSoapOperas
+Type: Package
+Title: RTutor problem set SoapOperas
+Version: 0.1
+Date: 2015-02-08
+Author: Clara Ulmer
+Maintainer: Clara Ulmer <clara.ulmer@uni-ulm.de>
+Description: RTutor problem set SoapOperas
+License: Problem set content: Creative Commons (CC BY-NC)
+	Package code: GPL >= 2.0
+Depends: RTutor, foreign, dplyr, ggplot2, gridExtra, lfe, stargazer, regtools

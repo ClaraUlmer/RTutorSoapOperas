@@ -1,0 +1,1785 @@
+
+#< ignore
+```{r "_"}
+library(restorepoint)
+# facilitates error detection
+set.restore.point.options(display.restore.point=!TRUE)
+
+library(RTutor)
+#library(restorepoint)
+setwd("/Users/Clara/Documents/Clara/Uni/Bachelorarbeit/data/R programming")
+ps.name = "SoapOperas"; sol.file = paste0(ps.name,"_sol.Rmd")
+libs = c("foreign", "dplyr", "ggplot2", "gridExtra", "lfe", "stargazer", "regtools") # character vector of all packages you load in the problem set
+#name.rmd.chunks(sol.file) # set auto chunk names in this file
+create.ps(sol.file=sol.file, ps.name=ps.name,libs=libs, var.txt.file = "Soap_Operas_Var.txt", stop.when.finished=FALSE)
+#traceback()
+show.shiny.ps(ps.name, load.sav=FALSE,  sample.solution=FALSE, is.solved=FALSE, catch.errors=TRUE, launch.browser=TRUE)
+stop.without.error()
+```
+#>
+
+## Exercise 1 Overview
+
+### Welcome!
+
+Welcome to this problem set that is part of my bachelor thesis at the University of Ulm! I am happy that you found it and I hope you will have some fun learning about programming in R and the influence of soap operas on fertility in Brazil. It is quite surprising what has happened there! We will also look at some econometric methods from time to time. Just click yourself through the problem set. Enjoy!
+
+### Content 
+
+Have you ever thought that it matters what you watch on TV? That this could influence your behavior in the real word? That this could also influence personal decisions like how many children you want to have? Or maybe even how you name them? 
+
+The paper *Soap Operas and Fertility: Evidence from Brazil* by Eliana La Ferrara, Alberto Chong and Suzanne Duryea (2012b) that can be downloaded <a href="https://www.aeaweb.org/articles.php?doi=10.1257/app.4.4.1" target="_blank">here</a> is treating the connection between the Brazilian telenovelas and birth rates in Brazil as the title is already revealing. Since the TV signal was not received everywhere in the country at the same time they use the variation in the signal to check if it had an influence on fecundity. Of course not only soap operas but also trends over time, wealth and other factors probably influenced people's behavior considering the number of children. The authors wonder if soap operas can still explain some part of the fertility decline when they care about these other factors. Moreover, they want to answer the question if really telenovelas made the fecundity decline or if there was just a correlation between these two factors.  
+
+The problem set is designed to lead you through this paper replicating the authors' results in R. We will use statistical methods and try to explain people's behavior with econometric ideas, not considering psychological reasons. This paper is connected to two fields of economic research: effects of media on social and political outcomes and family economics. We will focus on the latter. Family economics tries to explain human behavior with economic theory also in private decisions within a family considering for example marriage and the number of children. Garry S. Becker received the Nobel price in 1992 for transferring economic theory to non-economic fields like crime or family decisions (source: Heuser (1992)). Becker (1992, p.17) said in his Nobel price lecture that also intimate decisions witin a family are reached by "weighing the advantages and disadvantages of alternative actions". This weighing is influeced by individual preferences that can also capture altruism and guilt for example. Becker also said in his lecture that there was no theory that can explain human behavior as generally as rational choice theory. To check if predictions that are based on individual rationality are correct we need to look at the data. This is what we are going to do in this problem set. 
+
+### Problem set 
+
+You do not need to solve the exercises in the given order but it is recommended to do so as it makes most sense to start with descriptive statistics and go on with inference, causality, robustness checks and to end with the conclusion. Moreover later exercises expect earlier received knowledge from you. Within one tab you need to solve the tasks in the given order apart from the ones that are excluded explicitly with a note. At every code chunk you will find some buttons. Before solving the exercise you have the option to click *edit* when you open a new tab. Click here to start entering your code. Once you have started to enter your code, you have new buttons to take use of. To check your solution and run the code press *check*. The rest is self-explaining. 
+
+The problem set has the following structure:
+
+**Exercise 1: Overview**
+
+**Exercise 2: First approach to the data**
+<br>2.1 Expansion Globo signal
+<br>2.2 Fertility decline
+<br>2.3 Globo and fertility
+
+**Exercise 3: Telenovelas**
+<br>3.1 Rede Globo
+<br>3.2 Novelas
+
+**Exercise 4: Regressions**
+<br>4.1 Theory and Regressions in R
+<br>4.2 Interpretation
+
+**Exercise 5: Who was affected -- Heterogeneous effects**
+<br>5.1 Education and wealth
+<br>5.2 Age effects
+
+**Exercise 6: Falsification tests**
+<br>6.1 Years around Globo entry
+<br>6.2 Globo as dependent variable
+<br>6.3 Placebo regressions
+<br>6.4 Random year of Globo entry
+
+**Exercise 7: Robustness checks**
+<br>7.1 Adding controls
+<br>7.2 Use a different dependent variable
+
+**Exercise 8: TV or novelas**
+<br>8.1 Matching names
+<br>8.2 Social mobility
+<br>8.3 Matching age
+
+**Exercise 9: Conclusion**
+
+**Exercise 10: References**
+
+## Exercise 2.1 Expansion Globo signal -- First approach to the data
+
+To get a first idea about the data we are going to work with, we have to load them. The data we want to import are treating information about the expansion of the TV signal in Brazil. The first channel that started covering the country was *Rede Globo*.  
+
+To import data into R we can just assign the imported data to a variable that we create by giving it a name. That means in general we write: `new variable = read.table("data_name")`. As in our case we have data that is coming from STATA code we need to load a so called package before we can go on. Packages are great in R as they often save a lot of time and have really great features that we will take use of in this problem set many, many times. You are going to see that in a few steps as well. The package we need is named `foreign` and we load it with the command `library()`. In the brackets we have to name the package we are loading such that the code we need is `library(foreign)`. Now we can import our data. This is your turn. Use the command `read.dta()`. In the brackets you need to name the data you want to load. Its name is `GloboCoverage.dta`. Put it into quotes and assign it to the variable `GloboCoverage`.
+
+*As this is your very first exercise here some help about how to solve it: First of all think about what your task is. Then enter your code in the fifth line where no code is standing. If you do not know what to do, use the hint option. Click check to look if your code is correct and to run the code.*
+
+```{r "2_1_Expansion_Globo_signal_"}
+#< task
+# Load the package foreign.
+library(foreign)
+
+#>
+#< task
+# Assign the data GloboCoverage.dta to the variable GloboCoverage. Enter your code here:
+
+#>
+GloboCoverage = read.dta("GloboCoverage.dta")
+#< hint
+display("You assign the data you want to load to the variable GloboCoverage. You therefore write: GloboCoverage = ... Now you add read.dta(). In the brackets you write the data you want to load. Do just not forget to put quotes around it. Then click check.")
+#>
+
+```
+#< award "Importing data is important!"
+Great! You solved the first exercise and managed to import the data! Importing data is the first step on our way to analyze it.
+
+There will be some awards to win in this problem set. You can easily look at them by typing `awards()` in the code box and click *run chunk*. 
+#>
+
+To get an idea about how the data looks like we can look at the head of the table with the command `head(data_name)`. Try it out if you want. 
+<br>*You do not need to solve this exercise to be able to go on with the next task. Instead of using `head()` you can also click the button data*.
+
+```{r "2_1_Expansion_Globo_signal__2",optional=TRUE}
+#< task
+# If you want you can look at the data with the head() command. Enter your code here:
+
+#>
+head(GloboCoverage)
+```
+
+The column names are `amc_code` and `year`. An AMC is standing for "Minimally Comparable Area" which is the "smallest consistently defined geographic area" (source: La Ferrara et al. (2012b), p.9) in Brazil. For each of the $3659$ AMCs the table gives us the information when it was first reached by the Globo signal. We now want prepare the data such that we can plot the number of AMCs covered by the signal per year. 
+
+### Step 1 preparing the data
+
+As we want to obtain the number of AMCs covered per year we first have to make groups in the data frame. Let us do this using the command `group_by(data, condition)` of the package `dplyr` that we load first of all. We now assign this to the variable `GC_grouped`. We can now go on and add the number `n` of AMCs covered per year to the data frame. We can do this with the command `summarise()` which is especially useful in combination with `group_by()` as we can add a new variable summarizing the groups - in our case the number of AMCs. To get the number of observations in a vector (or in a list) we can use the command `length()`. Let us assign the new data frame to the variable `dg`. You can just click *check* here. If you want you can have a look at how the data looks like using the button *data* again.
+<br>*If you have skipped the last task you need to click edit before you can go on.*
+
+```{r "2_1_Expansion_Globo_signal__3"}
+#< task
+# Load the package dplyr.
+library(dplyr)
+
+# Assigning GloboCoverage grouped by year to the variable GC.grouped.
+GC_grouped = group_by(GloboCoverage, year)
+
+# Assigning the number of AMCs per year obtained by length(amc_code) to the column n. 
+dg = summarise(GC_grouped, n = length(amc_code))
+#>
+```
+
+We still need to transform the data to be able to plot it. We add a new column to the data frame `dg` with the column name `ncum`. Adding a "$" sign to a data frame you pick the column with the name that you write after the sign, in general: `dataframe$columnname`. You can use this also to add a new column just by giving a new name to a column and assigning a vector to it. In our case we want to have the accumulated number of AMCs that are already covered by the signal to a specific point in time. Remember that you have added a column `n` indicating the number of AMCs covered in a given year to the data frame `dg` in Step 1. In the *info box* you find some useful commands for vectors including how to compute an accumulated vector.
+
+#< info "Useful commands for vectors"
+
+```{r "2_1_Expansion_Globo_signal__4"}
+min(c(1,2,3)) # returns the minimum. The same works with max() to get the maximum.
+sum(c(1,2,3)) # returns the sum of all numbers.
+cumsum(c(1,2,3)) # returns the cumulated sum.
+mean(c(1,2,3)) # returns the average.
+```
+#>
+
+```{r "2_1_Expansion_Globo_signal__5"}
+#< task
+# Replace the ??? and do not forget to delete the comment sign afterwards.
+# dg$ncum = ???
+#>
+dg$ncum = cumsum(dg$n)
+#< hint
+display("cumsum() returns the cumulated sum. If you do not know which input to use remember that you can find the number of AMCs covered in the column n of the data frame dg. How to pick a column is described above the exercise. Do not forget to delete the comment sign at the beginning of the line in the end.")
+#>
+```
+
+#< award "Prepared to prepare the data!"
+Well done! You are now ready to solve more tasks to prepare data. We often need to do this in the first step as in many cases the data we have is not transformed in the way we need it.
+#>
+
+### Step 2 plotting the data 
+
+Let us finally plot the data! We are going to use the package `ggplot2` as this offers a lot of great ways for plotting. If you want to try it on your own, you are welcome to do so in the next exercise. Here the code is provided to show you how to compute a plot. We use the command `ggplot` to create a background. We need to tell the function the data we are going to use (`dg`) and the axes by writing `aes(x = ..., y = ...)`. As we want to plot the year on the x-axis and the cumulated number of AMCs that are covered on the y axis, we write `aes(x = year, y = ncum)`. We assign this to the variable `p`. Now we can add functions to the background as we want just by using the "+" sign. We add a line with the command `geom_line()` and change the color to red by writing `"col = "red"`. Last but not least we are going to change the text on the y-axis of the graph by adding `+ ylab("text")`. We save the plot in the variable `p1` and call the graphic by its name to plot it. Let us have a look at the graph by clicking *check*. 
+
+```{r "2_1_Expansion_Globo_signal__6",fig.height=7, fig.width=8}
+#< task
+# Load the package ggplot2.
+library(ggplot2)
+
+# Assign the background to the variable p. 
+p = ggplot(dg, aes(x = year, y = ncum))
+
+# Add the line and give a new name to the y-axis.
+p1 = p + geom_line(col = "red") + ylab("Number of AMCs covered by Globo signal")
+
+# Plot it.
+p1
+#>
+```
+
+We can see a very strong expansion of the Globo signal between 1975 and 1990. The red line is very steep here. Before 1970 almost no area received the signal but $20$ years later almost all the AMCs were covered by the signal. The proportion of AMCs covered increased sharply from $45 \%$ in 1980 to $92 \%$ in 1991. To see that there could be some connection between the expansion of the Globo signal and fertility decline we are going to look at the latter in the next exercise.
+
+*This exercise refers to page 3 and 11 - 12 in the paper.*
+
+## Exercise 2.2 Fertility decline -- First approach to the data
+
+First of all we need to import the required data again. This time we are importing data from various censuses in Brazil between 1979 and 1991. There are only women in the dataset. The authors use in their analysis a sample of more than $2$ million individuals from the census but we are going to work with a smaller sample of about $200,000$ observations as otherwise the following steps would take a lot of time to calculate. Click *edit* and then *check* to proceed. It may need a few seconds, do not worry.
+
+```{r "2_2_Fertility_decline_"}
+#< task
+# Load the data.
+load("Indiv_sample2")
+#>
+```
+
+Now let's have a look what is reported from the censuses. To show the column names we can use the command `colnames(variable_name)`. You can also use the button *data* if you want. Click *check* if you want to use the command `colnames()`. 
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "2_2_Fertility_decline__2",optional=TRUE}
+#< task
+# Have a look at the variables reported in the census.
+colnames(Indiv_sample2)
+#>
+```
+
+We can see the different column names. Most of them are pretty self-explanatory. The column that is important for us right now is named `B`. This dummy-variable is capturing the information if the woman gave birth during the last year. It is equal to $1$ if she did. 
+
+#< info "Dummy variable"
+A dummy variable, also called indicator variable is used when there are only two possible outcomes, often: "yes" or "no". Here for example the variable `globocoverage1` indicating if the area was covered by the TV signal one year before is a dummy variable. It is equal to $1$ if the area received the signal ("yes, it is covered") and $0$ if not ("no, it is not"). 
+
+Dummy variables are easily created and nice to interpret as the coefficient of the indicator variable shows the difference between the two groups that are coded with $0$ and $1$. 
+
+Suppose the independent variable was a dummy and the dependent one was not. Then we interpret as follows: When the independent variable changes from $0$ to $1$, which means in our case that the area now receives the signal, the coefficient is telling how strong the dependent variable reacts in units. If the outcome variable was income we would say: If the area received the signal the income changed by *k* units.
+<br>As the dependent variable `B` in our case is also a dummy variable indicating if the woman gave birth during the last year, we have to interpret the coefficient as probability change. This means in our example: A woman that was living in an area that received the signal has a *k* higher or lower chance to become a mother. Differently said this means that the probability to become a mother is $k*100$ percentage points higher or lower in comparison to a woman who was living in an area that did not receive the signal. 
+
+*Source: Stock and Watson (2007) p.158-159, Wooldridge (2006), p.257*
+#>
+
+Let us first of all get an idea about the variable `B`. How likely is it on average that a woman in Brazil gave birth in a given year? We can calculate the mean of this variable to answer this question.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "2_2_Fertility_decline__3",optional=TRUE}
+#< task
+# Compute the mean of the variable B.
+
+#>
+mean(Indiv_sample2$B)
+#< hint
+display("You do not know how to calculate a mean? You can go back to the expansion of the Globo signal and have a look at the info box about useful commands for vectors.")
+#>
+```
+
+We can see that the average probability to give birth for a woman was approximately $10$ percent. This seems to be quite high having in mind that this is the probability to bear a child in a given year. We could say that approximately one woman out of $10$ was becoming a mother every year. As we use a sample for our analysis here we obtain a slightly different result than the authors whose mean is around $9.4$ percent. Let us keep this in mind when we analyze the effect of soap operas on fertility in exercise 4.
+
+Next we want to study how fertility changed over time. For this purpose we are following exactly the same steps as in exercise 2.1: preparing the data and plotting it afterwards.
+
+### Step 1 preparing the data
+
+We group the data `Indiv` by `year` and assign it to the variable `Indiv.grouped`. Now we use `summarise()` again to add a new column with the probability of giving birth which we obtain from the mean of the dummy variable `B`. We assign this to the variable `n`. The new data frame gets the name `df`. I provide you the code for preparing the data here so you just need to click *check*.
+
+```{r "2_2_Fertility_decline__4"}
+#< task
+# Making groups in the Indiv data frame. We want to group the data by the year.
+Indiv.grouped = group_by(Indiv_sample2, year)
+
+# For every year we want the average number of births. 
+df = summarise(Indiv.grouped, n = mean(B))
+#>
+```
+
+### Step 2 plotting the data
+
+Now we can plot the data by using the package `ggplot2` again. This is your task. Like in exercise 2.1 we are going to follow three steps to obtain the plot and to show it. Do not hesitate to look at exercise 2.1 again and to use the *hint* option. 
+
+a) Load the required package. Then assign the background to the variable `p`. 
+
+```{r "2_2_Fertility_decline_a_"}
+#< task
+# Load the package.
+library(ggplot2)
+# 1.) Assign the background to the variable p.
+
+#>
+p = ggplot(df, aes(x = year, y = n))
+#< hint
+display("To assign the background to p write p = ... The basic construction for a ggplot background is ggplot(data frame, aes(x = ..., y = ...)).")
+#>
+```
+
+b) Now we are going to add a blue line to the background. The y-axis should have the more describing name "Probability of giving birth". Assign the whole plot to the variable p2.
+
+```{r "2_2_Fertility_decline_b_"}
+#< task
+# 2.) Assign the plot to the variable p2.
+
+#>
+p2 = p + geom_line(col = "blue") + ylab("Probability of giving birth")
+#< hint
+display("Remember that you add a line using + geom_line() and you add a new axis-name using + ylab(). Assign it to the variable p2 by writing p2 = ...")
+#>
+```
+
+c) Now plot it. 
+
+```{r "2_2_Fertility_decline_c_",fig.height=7, fig.width=8}
+#< task
+# 3.) Plot it.
+
+#>
+p2
+#< hint
+display("Call the name of the variable to show it.")
+#>
+```
+
+#< award "Plotting a plot!"
+Nice! You managed to make your first plot on your own! A visualization of the data is often quite helpful to get an idea about the data as well as to memorize or present data or any kind of results. Nevertheless do not forget that plots can also be quite misleading so always watch out for the scaling of the axis or the variance of the plotted data for example. Maybe it looks as if there was a sharp decline but actually it only changed a little bit. 
+#>
+
+When you look at the graph you can see that the blue line is falling for almost all years. The probability for a woman to become mother decreased sharply between 1980 and 1990. In 1980 the probability to give birth was around $12 \%$, in 1990 it was lower than $8.5 \%$. All in all the probability of giving birth decreased for about $3$ percentage points within only $10$ years. As mentioned in the award you have just received graphs can be misleading so notice here that we are working just with a sample. Nevertheless the graph we obtain here is close to the graph we get with the full dataset. The only difference is that there are not that many peaks but rather a smoother line.
+
+*This exercise refers to page 9 - 10 in the paper.*
+
+## Exercise 2.3 Globo and fertility -- First approach to the data
+
+*You must have solved 2.1 and 2.2 to be able to solve this exercise.*
+
+As a last step we want to have a look at both graphs at the same time. To show two or more graphs you can take use of the package `gridExtra` that we have to load first of course. In particular we are going to use the command `grid.arrange()`. In the brackets we can just name the plots we want to arrange and separate them with a comma. As the first plot about Globo coverage expansion has observations from the years 1965 until 2004 we are going to expand the limits in the second plot with the command `+ expand_limits(x = c(1965, 2004))`. Let us have a look at the graph in the next step after clicking *check*. 
+
+```{r "2_3_Globo_and_fertility_",fig.height=7, fig.width=8}
+#< settings
+import.var = list("2.1 Expansion Globo signal"="p1", "2.2 Fertility decline"="p2")
+#>
+#< task
+# Load the package gridExtra.
+library(gridExtra)
+
+# Plot both p1 and p2.
+grid.arrange(p1, p2 + expand_limits(x = c(1965, 2004)))
+#>
+```
+
+When we plot the two graphs next to each other we can get an idea why the authors thought that there could be some correlation between the expansion of the Globo signal and the fertility decline. Around 1979 the number of AMCs covered by the Globo signal strongly increased and about one year later the probability for a woman to become a mother started to decrease for the next $10$ years. But can we already conclude from this graph that watching novelas was the reason for the fertility decline? No. Just because they seem to be correlated does not mean they need to be causal. The other way round is a true expression instead: When they are causal they must be correlated. What we are interested in is if there is a causal relationship between watching novelas and fecundity decline. The next steps we are going to make have the aim to find out if there is. 
+
+## Exercise 3 Telenovelas
+
+### 3.1 Rede Globo
+
+Rede Globo was founded in 1965 in Brazil and is nowadays number two of the most important TV channels worldwide (source: oeropa.at (2015)). It reaches $99.5 \%$ of the Brazilian population and about $100$ million people worldwide every day (source: redeglobo.com (2015)). According to the authors the expansion of the Globo signal was mostly due to political reasons like military decisions and was not due to existing birth rates. If there was a correlation however is tested in the falsification tests starting with exercise 6.1. Until the 1990s Rede Globo was holding a monopoly in Brazil. This means for our analysis that we do not need to consider other channels. 
+
+The variable `globocoverage1` in the `Indiv` data frame is a dummy variable that is equal to $1$ if the AMC was reached by the Globo signal one year before to account for the duration of pregnancy. If you do not know what a dummy variable is but you are interested in it, go back to exercise 2.1 and have a look at the *info box* there. 
+
+
+### 3.2 Novelas
+
+Rede Globo is the leading producer of telenovelas in the world that are knows as *novelas* in Spanish speaking cultures. In 2008 TV Globo has aired $309$ telenovelas, miniseries and series (source: redeglobo.com (2015)). When Rede Globo was founded there was a military dictatorship in Brazil that lasted from 1964 to 1985. During this period of time censorship made many authors write plots for novelas. As part of their revolt against the military regime they imposed new ideals like freedom, luxury, modern ideas as well as wealthy families that were portrayed. Family planning as a subject itself has never been part of a plot explicitly however. Kunath (2014) states that during this period novelas were considered as an escape from reality but people watched it anyway. 
+
+Nowadays between $60$ and $80$ million people watch the aired novelas. Every evening starting at 6 p.m. Rede Globo airs soap operas: starting with repetitions, followed by mostly comedies at 7 p.m. and more serious plots that treat social issues at 8 p.m. In general the later shown novelas have a higher audience than the earlier ones. Brazilian telenovelas are unlike other soap operas from Latin America because of their high quality both of the plots and of their production. Moreover they play an important role in Brazilian life: Everybody watches them, no matter of the socioeconomic status. Kunath (2014) states that for example at the lunch diner people eat watching repetitions but also the Brazilian president Dilma Rousseff rescheduled a date because it was set the same time as the last episode of a well-known telenovela. As everybody watches novelas we do not need to wonder if it could only influence some parts of the society. We nevertheless look at if the strength varies across socioeconomic statuses in exercise 5. 
+
+Telenovelas are that successful as they are easy to identify with. They take place in easily recognizable locations and treat daily life issues. Moreover viewers like the often used middle-class setup including social mobility. To get a better idea about the characters in the novelas that were aired during our analyzed time, we are going to look at the data `Novelas.dta` that we need to import first of all. Click *check* to do so.
+
+```{r "3_Telenovelas_"}
+#< task
+# Import the data. 
+Novelas = read.dta("Novelas.dta")
+#>
+```
+
+In this dataset the authors coded the content for the $7$ and $8$ p.m. novelas aired between 1965 and 1999. Now we are going to filter `Novelas` because in the dataset the title "selva de pedra" appears twice as it was broadcasted in 1972 and 1986. For the statistic about the novela content we only want to count it once. To choose specific rows we use the command `filter()` from the `dplyr` package. We want to take all rows apart from the one in which the title is equal to "selva de pedra" and the `year_start` variable is equal to 1986. To use logical operators in R there are a few things to know:
+* $A \cap B$ is in R: A&B
+* $A \cup B$ is in R: A|B
+* $\overline{A}$ is in R: !(A)
+* $A=B$ is in R: A==B 
+
+```{r "3_Telenovelas__2"}
+#< task
+# Load the package.
+library(dplyr)
+
+# Filter the data by replacing the ??? and do not forget to delete the comment sign afterwards.
+# Novelas.small = filter(Novelas, !(??? & ???))
+
+#>
+Novelas.small = filter(Novelas, !(title == "selva de pedra" & year_start == 1986)) 
+#< hint
+display("You want to pick all rows that do NOT have the title selva de pedra AND the year_start 1986. To check for equality do not forget to use double ==. Also: Have you deleted the # sign?")
+#>
+```
+
+We nevertheless should keep in mind that both broadcasts could have had an effect on fertility however. 
+<br>The generated variables in the following code chunk are a subset of the data frame `Novelas`. `Novelas.young` considers only women aged $50$ and younger. `Novelas.young.married` only considers married characters as a second condition. Just click *check*. 
+
+```{r "3_Telenovelas__3"}
+#< task
+# Subset of characters younger than 50.
+Novelas.young = filter(Novelas.small, age<50)
+
+# First female character younger than 50 and married.
+Novelas.young.married = filter(Novelas.small, (age < 50 & marriage == 1)) 
+#>
+```
+
+We now want to find out how many children the first female characters in the novelas had. If they had a lot of children it would not make any sense that watching novelas had a negative effect on fertility. Any kind of watching TV could then possibly be the driving factor for the fertility decline in Brazil but not novelas in particular. 
+
+In order to do this we are going to use a histogram that we develop with the `ggplot2` package again. As you already know how to make a ggplot in general, I am going to introduce to you only how to make a histogram here. If you want to repeat how to make a ggplot you can go back to exercise 2. 
+
+To add a histogram to a background you add `+ geom_histogram()`. In the brackets we make sure that not the number of observations is plotted but rather the density. We add `breaks = seq(0, 8)` such that we always see bars for the number of children between zero and the maximal observed number of $8$. As a last step we add a title to the plot with the `+ ggtitle()` command. We generate $3$ plots with different subsets of first female characters that we plot above the other using `grid.arrange()` again. Click *check* to look at the graph. 
+
+```{r "3_Telenovelas__4",fig.height=7, fig.width=8}
+#< task
+# First plot with all novelas. 
+# y=..density.. in geom_histogram makes sure no absolute numbers but rather relative numbers are plotted.
+p1 = ggplot(data = Novelas.small, aes(fertility)) + geom_histogram(aes(y = ..density..), breaks = seq(0, 8), fill = "red") + ggtitle("All novelas")
+
+# Second plot with all novelas in which the first female character is younger than 50.
+p2 = ggplot(data = Novelas.young, aes(fertility)) + geom_histogram(aes(y= ..density..), breaks = seq(0, 8), fill = "blue") + ggtitle("First female younger than 50")
+
+# Third plot with all novelas in which the first female character is young and married.
+p3 = ggplot(data = Novelas.young.married, aes(fertility)) + geom_histogram(aes(y= ..density..), breaks = seq(0, 8), fill = "green") + ggtitle("First female younger than 50 and married")
+
+# Plot all of them at the same time.
+library(gridExtra)
+grid.arrange(p1, p2, p3)
+#> 
+```
+
+From the first plot we can compute that more than half of the characters in the novelas from our dataset do not have children at all. If they do, they most of the times have only one child. Looking at the subset of only young women we see that in around $70 \%$ of all cases they do not have children at all. Moreover there is not even one protagonist that has $4$ or more children. As it is probably easier for women in their childbearing age to identify with young characters this is quite important. Regarding the last plot we find out that the characters younger than $50$ and married are nevertheless more often a mother of one or $2$ children. The families that were portrayed in the novelas were different from normal Brazilian families at that time. They were portrayed as an idealization of a small family: happy and rich. The authors cite Faria and Potter (1999) when they write about the women watching these novelas. As I am not able to read their article, I cannot go into the results in further detail but La Ferrara et al. (2012b) write in their paper that the women watching these novelas portrayed themselves as poor and unhappy with more children. The authors therefore conclude that novelas might have changed the viewers' preferences to fewer children also making them think about opportunity costs of raising them. 
+
+Note that as the women watching these novelas had more children it does not make sense to think there could be reverse causality such that the novelas portray small families as the fertility declined. In addition, the authors state that the number of children did not decrease over time in the novela plots.
+
+*This exercise refers to page 7 and 13 in the paper.*
+
+
+## Exercise 4.1 Theory and Regressions in R -- Regressions
+
+A short recapture: Until now we have got an idea about the data and we have done some descriptive statistics. We have seen that there could be some correlation between Globo coverage and the fertility decline. We have also noticed that this relationship does not need to be causal. We have then looked at the novela content and found out that there are small families portrayed, so the novelas aired by Globo could be the reason for the fertility decline. They still do not need to be causal. To find out if there was a causal relationship or just a correlation we are following the next steps. 
+
+### Linear Regression Model
+
+We start with supposing a model, in particular a **linear model**. This means that we think that there could have been a linear correlation between the dependent variable - in our case fertility - and the independent variable, to be more precise the Globo coverage. Mathematically we can express this relationship with the following formula: $$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+u_{it}$$
+
+To have a look at regressions in R we first of all need to load the required data. Click *check* to do so. 
+
+```{r "4_1_Theory_and_Regressions_in_R_"}
+#< task
+# Load the data.
+load("Indiv_sample2")
+#>
+```
+
+Now let us run the regression with the command `lm()` which can be used for linear models. To obtain a nice output we are using the package `stargazer` and the function with the same name. It allows us to create nice tables as they are printed in articles with many columns from different regressions. Just click *check* to run the code.
+
+```{r "4_1_Theory_and_Regressions_in_R__2",results='asis'}
+#< task
+# Run the regression.
+reg1_short = lm(B~globocoverage1, data = Indiv_sample2)
+
+# Output.
+library(stargazer)
+stargazer(reg1_short, type = "html")
+#>
+```
+
+<br>We can see that the coefficient we obtained for the $\hat{\beta_{1}}$ is $-0.035$ and our estimate for $\hat{\beta_{0}}$ is $0.126$. As the coefficient of `globocoverage1` is $-0.035$, thus negative, we can see that there was a negative effect of Globo coverage on fertility. How to interpret the number more precisely will be explained in a few steps. You can also see that there are stars next to the numbers. They indicate the p-value and therefore the significance level. In our case we see three stars next to the estimator for `globocoverage1` which means the p-value is smaller than $0.01$ -- you can also see the scaling at the bottom of the table. This means that in case the true correlation was zero the probability that we find an estimator that is at least as high as the one we have found is less than $1$ percent. This is pretty rare. We will come back to that later on again.
+
+It is obvious that not only the Globo signal influenced fertility but also when the person was living, how wealthy she was, if she was married and a lot of other factors we could think of. All these factors are not included in our regression yet but do we need to include them? And why? 
+
+### Omitted variable bias
+
+To answer these questions let us suppose for now that in the true model only Globo coverage and wealth influenced woman's decision and all the other factors did not have any influence at all such that `globocoverage1` and `wealth_noTV`. We suppose they are **exogeneous variables** (see the *info box* for further information). 
+
+#< info "Exogeneous and endogeneous explanatory variables"
+For us the main difference you should know is that an explanatory variable is called **exogeneous** if it is not correlated with the error term. This means that for example that $Cor(globocoverage1_{it}, u_{it}) = 0$. If there is some correlation between the explanatory variable and the error term which means for example that $Cor(globocoverage1_{it}, u_{it}) \neq 0$ we say the variable is **endogeneous** (source: Wooldridge (2006), p. 862).
+#> 
+
+As a consequence our formula for the true model changes from $$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+u_{it}$$ to $$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+\beta_{2}*wealth \_ noTV_{it}+v_{it}$$ Note that the second, longer formula can be derived by the first one with $$u_{it}=\beta_{2}*wealth \_ noTV_{it}+v_{it}$$ Note also that as the long model is the true one in our opinion, the variable `globocoverage1` from the short regression is now correlated with the error term. Let us run this regression in R as well. To be able to compare it easily to the first one we load the `reg1_short` results again. Click *check*. 
+
+```{r "4_1_Theory_and_Regressions_in_R__3",results='asis'}
+#< task
+# Run the regression.
+reg2_long = lm(B~globocoverage1+wealth_noTV, data = Indiv_sample2)
+
+# Output.
+stargazer(reg1_short, reg2_long, type = "html")
+#>
+```
+
+<br>You can see that the effect of Globo coverage declined sharply from $-0.035$ to $-0.019$. The significance indicated by the stars stayed at the same level. `wealth_noTV` is also significant on the $1$ percent level. 
+
+Imagine we thought that the short formula was the true model and we forgot that wealth should also be included in our regression model. In this case our estimates would have been biased. Wooldridge (2006, p. 96) provides a formula for the bias that occurs due to missing factors -- the so called **omitted variable bias** (source: Wooldridge (2006), p. 866). You can find more information about the formula in the *info box* that is underneath. 
+$$bias(\tilde{\beta_{1}}) = \beta_{2} * \frac{Cov(x_{1}, x_{2})}{Var(x_{1})}$$ 
+$\tilde{\beta_{0}} \text{ and } \tilde{\beta_{1}} \qquad \ \; \text{estimators from the short regression}$<br>
+$\hat{\beta_{0}} \text{ , } \hat{\beta_{1}} \text{ and } \hat{\beta_{2}} \quad \text{estimators from the long regression}$
+
+#< info "More information about the bias formula"
+Comparing the short and the long regression the obvious difference is the number of independent variables that are included: in the short regression only `globocoverage1` is included and in the second one we have furthermore added the variable `wealth_noTV`. Basically this is just a switch from a regression with one variable to a regression with two variables. Wooldridge (2006, p.84) provides a formula for the relationship between the coefficients in this case: $$\tilde{\beta_{1}}=\hat{\beta_{1}}+\tilde{\delta_{1}}*\hat{\beta_{2}}$$ 
+$\tilde{\beta_{0}} \text{ and } \tilde{\beta_{1}} \qquad \ \; \text{estimators from the short regression}$<br>
+$\hat{\beta_{0}} \text{ , } \hat{\beta_{1}} \text{ and } \hat{\beta_{2}} \quad \text{estimators from the long regression}$<br>
+$\tilde{\delta_{1}} \qquad \qquad \quad \text{ estimator for } \delta_{1} \text{ from the regression } wealth \_ noTV_{it}= a + \delta_{1}*globocoverage1_{it} + \epsilon_{it}$
+
+Now we can have a look at the bias. To verify that an estimator is unbiased you show that the expected value of the estimator is equal to the true estimator or in other words that the difference between these two is zero. This means here that we check if $$\mathbb{E}(\tilde{\beta_{1}})-\beta_{1}= 0$$ 
+Calculating $\mathbb{E}(\tilde{\beta_{1}})$ we can use the properties of expected values and obtain that $$\mathbb{E}(\tilde{\beta_{1}})=\mathbb{E}(\hat{\beta_{1}}+\tilde{\delta_{1}}*\hat{\beta_{2}}) =\mathbb{E}(\hat{\beta_{1}})+ \tilde{\delta_{1}}*\mathbb{E}(\hat{\beta_{2}})=\beta_{1}+\tilde{\delta_{1}}*\beta_{2}$$ which is in general not equal to $\beta_{1}$. The bias can be computed by the difference of the expected value and the true estimate, which can be written as $$bias(\tilde{\beta_{1}})=\beta_{1}+\tilde{\delta_{1}}*\beta_{2}-\beta_{1}=\tilde{\delta_{1}}*\beta_{2}$$ (source: Wooldridge (2006), p.95-97, 739). 
+
+Note that the $\tilde{\delta_{1}}$ can be calculated in a linear model with one independent variable as $\tilde{\delta_{1}}=\frac{Cov(x_{1}, x_{2})}{Var(x_{1})}$ (source: von Auer (2007), p. 56). Using this relationship you can see that we received the given formula: $$bias(\tilde{\beta_{1}})=\tilde{\delta_{1}}*\beta_{2}=\frac{Cov(x_{1}, x_{2})}{Var(x_{1})}*\beta_{2}$$
+#>
+
+Let us now use this formula to calculate the bias that occurs in our sample, let us call it the $\widehat {bias(\tilde{\beta_{1}})}$. In our regression model the $x_{1}$ is the variable `globocoverage1` and $x_{2}$ `wealth_noTV`. We thus estimate $$\widehat {bias(\tilde{\beta_{1}})} = \hat{\beta_{2}} * \frac{Cov(globocoverage1_{it}, wealth \_ noTV_{it})}{Var(globocoverage1_{it})}$$
+
+Run the code by clicking *check*.
+
+```{r "4_1_Theory_and_Regressions_in_R__4"}
+#< task
+# Determine x1 and x2.
+x1 = Indiv_sample2$globocoverage1
+x2 = Indiv_sample2$wealth_noTV
+
+# Take the beta_2 from the long regression.
+beta2_hat = coef(reg2_long)[3]
+
+# Calculate the bias_hat.
+bias_hat = beta2_hat * cov(x1, x2) / var(x1)
+
+# Show the bias_hat.
+bias_hat
+#>
+```
+
+You can see that the bias we had in our short regression without considering wealth was approximately $-0.0163$. This means we overestimated the negative effect of Globo coverage on fertility in our short regression. The absolute value of $\tilde{\beta_{1}}$ was too high in comparison to the true effect $\hat{\beta_{1}}$. The difference between these two estimates is exactly the $\widehat {bias(\tilde{\beta_{1}})}$ we have computed. Differently written: $$\tilde{\beta_{1}}-\widehat {bias(\tilde{\beta_{1}})}=\hat{\beta_{1}}$$ If you want you can verify this by clicking *check*.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_1_Theory_and_Regressions_in_R__5",optional=TRUE}
+#< task
+# Save the beta1_tilde from the short regression.
+beta1_tilde = coef(reg1_short)[2]
+
+# Save the beta1_hat from the long regression.
+beta1_hat = coef(reg2_long)[2]
+
+# Left hand side of the expression.
+beta1_tilde - bias_hat
+
+# Right hand side of the expression.
+beta1_hat
+#>
+```
+
+To calculate the bias we have divided the covariance by the variance. However the term $\frac{Cov(globocoverage1_{it}, wealth \_ noTV_{it})}{Var(globocoverage1_{it})}$ can also be calculated as the $\tilde{\delta_{1}}$ from the regression $$wealth \_ noTV_{it}= a + \delta_{1}*globocoverage1_{it} + \epsilon_{it}$$ If you want you can verify this by clicking *check*.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_1_Theory_and_Regressions_in_R__6",optional=TRUE}
+#< task
+# Run the regression.
+reg = lm(wealth_noTV~globocoverage1, data = Indiv_sample2)
+
+# Show the coefficient.
+coef(reg)[2]
+
+# Compare it to the term covariance divided by the variance.
+cov(x1, x2) / var(x1)
+#>
+```
+
+
+Coming back to the formula about the bias we can now derive two conditions that have to be satisfied such that we have omitted variable bias, which means for us that we should include the variable in our regression. The formula was: $$bias(\tilde{\beta_{1}}) = \beta_{2} * \frac{Cov(x_{1}, x_{2})}{Var(x_{1})}$$
+
+1.) The omitted variable has to be correlated with an included regressor (source: Stock and Watson (2007), p.189). This means as we have only one variable yet the omitted variable has to be correlated with `globocoverage1` in our sample. In the formula for the bias you can see that if there is no correlation, e.i. $Cov(x_{1}, x_{2})=0$, the $bias(\tilde{\beta_{1}})$ would be equal to zero so our estimates would not be biased.
+
+2.) The omitted variable has to influence the dependent variable (source: Stock and Watson (2007), p.189). This means that the variable we have omitted has to affect our outcome variable `B`, which means it has to be correlated with the probability that the woman gave birth in a given census year. In the formula for the bias you can see this condition in the fact that if $\beta_{2}=0$ the $bias(\tilde{\beta_{1}})$ would be equal to zero as well.
+
+In the following *info box* I provide some examples such that you can understand more easily what is happening if only one of the conditions holds, if neither of them hold and also if both of them are satisfied. You can have a look at it if you want.
+
+#< info "Omitted variable bias: Examples"
+* If neither 1 nor 2 is true:
+<br>We do not have omitted variable bias. For example why should we include the price for pencils in the regression? If we believe that the price level and the expansion of the TV signal were not correlated it does not make any sense that it influenced if the area received the Globo signal. It neither makes sense that it influenced the birth rate. 
+
+* If 1 is true but 2 not:
+<br>We do not have omitted variable bias. For example we do not need to include if the town head is friends with the person working at Globo and deciding where to expand the signal. This fact should not have any influence on the probability of giving birth for a woman living in this area.
+
+* If 2 is true but 1 not: 
+<br>We do not have omitted variable bias. For example we could think of the marital status. It probably influences if the woman is more likely to become a mother but is at first sight not linked to the Globo coverage. Nevertheless we are going to include some of these factors in our regression later on as there might be a correlation with Globo coverage that is not obvious. We could imagine for example that in some areas it is more common to marry than in others. And maybe these regions were more likely to receive the signal than others. Then there would be some positive correlation that was not obvious at first sight. 
+
+* If 1 and 2 are true:
+<br>We have omitted variable bias. We could think of wealth for example. As Globo aired advertisements as well it was probably easier to sell them when richer areas received the signal. People living there were probably more likely to buy the advertised products. Wealth could have also influenced fertility as they might had higher opportunity costs to raise children because they could not work in the meanwhile. Therefore both the independent and the dependent variable are influenced by the omitted variable, which would result in a bias if we did not include it. 
+#>
+
+### Multiple Regression Model
+
+To control for these other possible influences we use a **multiple regression model**. In contrast to a regression with only one variable we introduce new variables to take care of other possible influences. Including wealth in our second regression we have already had a multiple regression model with two variables. Let us include the marital status now to obtain a multiple regression model with three independent variables. The formula is becoming $$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+\beta_{2}*wealth \_ no TV_{it}+\beta_{3}*married_{it}+u_{it}$$ Click *check* to run the code.
+
+```{r "4_1_Theory_and_Regressions_in_R__8",results='asis'}
+#< task 
+# Run the regression.
+reg3 = lm(B~globocoverage1+wealth_noTV+married, data = Indiv_sample2)
+
+# Output.
+stargazer(reg1_short, reg2_long, reg3, type = "html")
+#> 
+```
+
+<br>You can see that the effect of Globo coverage declines further to $-0.016$ but it stays significant on the $1$ percent level. 
+
+There are a lot of other factors that we could include. We can add these factors with a "+" sign to our formula multiplying it with a $\beta$. The formula becomes in general: $$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+\beta_{2}*wealth \_ no TV_{it}+\beta_{3}*married_{it}+...+u_{it}$$ 
+All the added independent variables are referred to as **control variables** (source: Stock and Watson (2007) p.193). We will look at the other control variables in further detail in exercise 4.2. 
+
+Note that to not have omitted variable bias in a multiple regression model we need to include all variables that are both correlated to one of the included regressors and with the outcome variable `B`. 
+
+### Linear probability model and weighted least squares estimates
+
+Remember that our dependent variable `B` indicating births was a dummy variable. As we are using a multiple regression model with a dependent variable that is binary we are using a so called **linear probability model**. This means that we interpret `B` as the probability that the dummy variable is equal to $1$. In other words that she gave birth during the last year given the independent variables. In case of using a linear probability model standard errors are always heteroskedastic, which is explained in the *info box*. This is why we are calculating **weighted least squares estimates** (source: Stock and Watson (2007) p. 385-389). 
+
+#< info "Heteroskedastic and homoskedastic standard errors"
+Depending on the variance of the error term given the explanatory variables in a regression model we speak about heteroskedastic or homoskedastic standard errors. 
+<br>If $Var(u_{it}~|~x)$ does not depend on *x* or differently said that it is constant, the standard errors are called *homoskedastic*. If $Var(u_{it}~|~x)$ is not constant as it depends on the value of *x* the standard errors are called *heteroskedastic* (source: Wooldridge (2006), p.57, 863).
+#>
+
+To verify that the standard errors are always heteroskedastic let us have a look at the variance of the outcome variable `B` given any value of the independent variables like `globocoverage1`, `wealth_noTV`, `married` and so on. Let $x$ denote the set of these variables. Then according to Wooldridge (2006, p. 256) the conditional variance of `B` can be calculated by $$Var(B~|~x)=p(x)*[1-p(x)]$$ $$p(x)=\beta_{0}+\beta_{1}*globocoverage1_{it}+\beta_{2}*age_{it}+...$$ $p(x)$ denotes the probability of success, in our case that the woman gave birth during the last year: $B=1$. The variance is supposed to be constant for all values of $x$ such that we can use our normal statistics to check our estimates for validity. This is only the case if $p(x)=0$ or $p(x)=1$ which means that all $\beta$ have to be $0$ thus `globocoverage1`, `wealth_noTV`, `married` and so on would not have any influence on `B`. This is very unlikely so we should care about the heteroskedasticity by calculating weighted least square estimates. Note that we do not need weighted least squares because of bias issues. However, the estimators we would get with regular OLS were not the **Best Linear Unbiased Estimators (BLUE)** (source: Wooldridge (2006), p. 109, 256).
+
+When we calculate weighted least squares estimates we assume that the variance of the error term is not random but follows some distribution $h(x)$ which means we can write the variance as $$Var(u~|~x)=h(x)*\sigma^2$$ We also assume that we knew this distribution.
+Now we can divide every observation by the square root of $h(x)$ such that our formula looks like: $$\frac{B_{it}}{\sqrt{h_{i}}}=\frac{\beta_{0}}{\sqrt{h_{i}}}+\beta_{1}*\frac{globocoverage1_{it}}{\sqrt{h_{i}}}+\beta_{2}*\frac{wealth \_ noTV_{it}}{\sqrt{h_{i}}}+...+\frac{v_{it}}{\sqrt{h_{i}}}$$ The error term now has a mean of zero and is homoskedastic so when we use our usual OLS estimation to compute the $\beta$ we will get robust standard errors such that we can use our standard statistics to check the estimates for validity. Moreover we will get estimates that are BLUE. For us in this problem set we do not need to find $h(x)$ which can be very difficult. The authors provide the weights for the regression in the dataset. They are saved in the column `weight` in the data frame `Indiv`. How they are computed is not explained however (source: Wooldridge (2006), p. 284-287).
+
+Let us run the third regression as a weighted least squares regression in R and compare it to the results we have already obtained. Click *check* and look at the output.
+
+```{r "4_1_Theory_and_Regressions_in_R__9",results='asis'}
+#< task
+# Run the regression.
+reg4 = lm(B~globocoverage1+wealth_noTV+married, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+stargazer(reg1_short, reg2_long, reg3, reg4, type = "html")
+#>
+```
+
+<br>We can see that the effect of Globo coverage is smaller than in column $3$ but the significance stays at $1$ percent, the same level as before.
+
+What does it mean to calculate weighted least squares estimates? Weighted least square estimators are called like this because the $\beta$ that we estimate now minimize the weighted sum of squared residuals. Observations with higher variance in the error term have a lower weight in the regression than observations with lower variance in the error term. The weight for every squared residual is $\frac{1}{h_{i}}$ (source: Wooldridge (2006), p. 286). For us this means that we weight some individuals more than others. The authors explain their weights by writing "V7301:peso" (source: La Ferrara et al. (2012a)) which means "V7301:weight". Unfortunately we cannot conclude from this explanation what was weighted high and what low. We can only guess that observations that were more representative have a higher weight than those that were rare.
+
+
+### Fixed effects
+
+Another control we are going to use are **fixed effects**. When you speak about time fixed effects you suppose that the observations change over time but are constant across entities. We could imagine that the year has both an influence on Globo coverage and on fertility. It might have influenced Globo coverage as when time was passing more and more regions received the signal. The time might also have influenced fertility by a common trend. As we still want to find a causal relationship we want to control for the time to not have omitted variable bias. You can do the same if you want to control for state fixed effects if you think that the observations vary across states but are constant over time. In a nutshell it is a method for controlling. Fixed effects are often used when you have panel data which is explained in the *info box*. For each entity we say that there is another constant but the slope is the same for all of them. If you are interested in how this looks mathematically look at the *info box*.
+
+#< info "Panel data"
+You have panel data when you observe many entities over time and each entity is observed at least twice. Another name for this kind of data is *longitudinal data*. There are two types: balanced and unbalanced panel data. In the first one mentioned all entities are observed in all time periods. In the unbalanced data set there is information about at least one period for one entity missing (source: Stock and Watson (2007), p.13, 350-351). In our case we have information about women in many census years. As the number of observations per woman varies we have unbalanced panel data. 
+<br>*Note that the number of observations per woman is quite low in our data set as we are only working with a sample. There are also women in our data set from which we have information from only one census year. Regarding the data that the authors use they have unbalanced panel data with only very few women that are only observed once.*
+#>
+
+#< info "Fixed effects mathematically"
+To include fixed effects into the formula we use binary variables to form groups. In our dataset this means:
+Suppose we want to estimate the effect of Globo coverage on fertility and we have no other control variables different from time effects, respectively: $$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+\beta_{2}*year_{t}+u_{it}$$
+
+This can be turned into $$B_{it}=\beta_{1}*globocoverage1_{it}+\lambda_{t}+u_{it} \text{ with } \lambda_{t}=\beta_{2}*year_{t}+\beta_{0t}$$ 
+
+$\lambda_{t}=(\lambda_{1}, \lambda_{2}, ..., \lambda_{T})$ are called time fixed effects.
+
+As the $\lambda_{t}$ do not change across entities and are only dependent from the time t we can transform the $year_{t}$ variable to $n-1$ dummy variables which results in:
+
+$$B_{it}=\beta_{0}+\beta_{1}*globocoverage1_{it}+\gamma_{2}*D2_{t}+\gamma_{3}*D3_{t}+...+\gamma_{T}*DT_{T}+u_{it}$$ with $D2_{t}= 1$ if $t$ is $= 1$ and $D2_{t}= 0$ if $t$ is $\neq 1$ and so on.
+
+You see that we created a new formula that we can estimate with regular OLS estimation now.
+
+*Source: Stock and Watson (2007), p.356-367*
+#>
+
+In R there are two ways to introduce fixed effects.
+
+a) **Using `lm()`**
+<br>With the command `lm()` in which we create a formula and add a `factor()`. You see that there are different intercepts for every single year. Just click *check* to run the code.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_1_Theory_and_Regressions_in_R_a_",results='asis', optional=TRUE}
+#< task
+# Run the regression using lm().
+reg5 = lm(B~globocoverage1 + factor(year), weight = weight, data = Indiv_sample2)
+
+# Output.
+library(stargazer)
+stargazer(reg5, type = "html")
+#>
+```
+
+<br>
+b) **Using `felm()`**
+<br>The other possibility is to use the package `lfe` from which we use the command `felm()`. Just look at the output here by clicking *check*. I describe how to use it in the next exercise. 
+<br>*For your information:<br>To obtain a nice output using stargazer you need at least version 5.2 of the stargazer package.<br>To obtain correct clustered standard errors in weighted least squares regressions you need at least version 2.3-1709 of the lfe package.*
+
+```{r "4_1_Theory_and_Regressions_in_R_b_",results='asis'}
+#< task
+# Load the package lfe.
+library(lfe)
+
+# Run the regression using felm().
+reg6 = felm(B~globocoverage1 | year, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+stargazer(reg6, type = "html")
+#>
+```
+
+<br>The coefficient of `globocoverage1` is exactly the same as before but notice that the command `felm()` is a lot faster than the `lm()` command. This advantage as well as the fact that the results are not correct with the `lm()` command when we have more than one fixed effect is why we are going to use the `felm()` command later on. Another difference to `lm()` is that we get a shorter output with just the marginal effect and without the constants. 
+
+### Clustered standard errors
+
+Using a fixed effect regression we suppose that the observations change over time (or entities) but are constant across entities (or time). Regarding the error terms it is likely that there exist groups within which the standard errors are correlated. For example it is likely that all people living in the same AMC had a comparable surrounding that has affected them. When we want to allow the errors to be correlated within a group but we still assume that they are not correlated across groups we use **clustered standard errors** (source: Stock and Watson (2007), p.366-367). Let us include clustering at the AMC level to our regression. Click *check*.
+
+```{r "4_1_Theory_and_Regressions_in_R_b__2",results='asis'}
+#< task
+# Run the regression.
+reg7 = felm(B~globocoverage1 | year | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+stargazer(reg6, reg7, type = "html")
+#>
+```
+
+<br>You can see that the clustered standard errors that are reported in the brackets changed from $0.002$ to $0.001$ whereas the coefficient stayed the same. 
+
+We have now looked at many theoretical parts from our regression. Now it is your turn in the next exercise to apply your knowledge and understand better how the `felm()` command is working.
+
+
+## Exercise 4.2 Regression Interpretation -- Regressions
+
+To be able to solve the next tasks load the required data by clicking *check*. We also run the regression including time fixed effects and clustering at the AMC level again such that we can get a nice overview below.
+
+```{r "4_2_Regression_Interpretation_",results='asis'}
+#< task
+# Load the data.
+load("Indiv_sample2")
+
+# Run the regression.
+library(lfe)
+reg1 = felm(B~globocoverage1 | year | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+library(stargazer)
+stargazer(reg1, type = "html")
+#>
+```
+
+<br>You could see from the regression that there is a negative and significant of Globo coverage on fertility. The coefficient of Globo coverage without any controls is $-0.028$ thus a woman living in an area that received the signal had a $0.028$ lower chance to become a mother in comparison to a woman living in an area that did not receive the signal. However we should be very careful interpreting the coefficient as there are so many other possible influences that we have not yet cared about. First of all we should control for the area at the AMC level. This is your turn! 
+
+What you need to know to solve the next exercise is the following: The command `felm()` requires the formula in the brackets as a first argument. The general it looks like $$y \sim x_{1}+...+x_{n} ~|~ factor_{1}+...+factor_{n} ~|~ 0 ~|~ cluster_{1}+...+cluster_{n}$$
+The space where the zero is standing can be used if the regression is supposed to use independent variables. As we won't use this method in this problem set it will always be zero for us however.
+
+*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_2_Regression_Interpretation__2",optional=TRUE, results='asis'}
+#< task
+# Run the regression. Include the area control at the AMC level. Do not forget to delete the comment sign afterwards. 
+# reg2 = felm(B~globocoverage1 | year | 0 | amc_code , weights = Indiv_sample2$weight, data = Indiv_sample2)
+#>
+reg2 = felm(B~globocoverage1 | year + amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+#< hint
+display("You need to decide if you want to add the area control as a control variable or as fixed effect variable. Remember that we use panel data. Do not forget to delete the two comment signs to be able to show your result.")
+#>
+#< task
+
+# Output. Delete the comment sign to ba able to run the code.
+# stargazer(reg1, reg2, type = "html")
+#>
+stargazer(reg1, reg2, type = "html")
+```
+
+<br>You can see that the effect of Globo coverage on fertility decreased a lot in comparison to the first estimation in which we did not control for area fixed effects. Globo coverage is now associated with a decrease in the probability of giving birth of about $0.007$ which means around $0.7$ percentage points. We can conclude from this that the area had a strong influence on fecundity. As the estimator stays significant at the one percent level we can nevertheless still find a negative correlation between Globo coverage and fertility. The p-value and therefore the significance level is indicated by the stars $*, **, ***$. The clustered standard errors are reported in the brackets. A p-value of one percent means here that given the true correlation between Globo coverage and fertility was zero, such that there was no correlation at all, the probability that we find an estimator at least as high as the one we found is less than one percent. This is pretty low which means on the other hand that our hypothesis that there is a negative correlation between Globo coverage and fertility is with a high probability correct.
+
+No we want to add controls to our regression. You can include all variables from the data frame `Indiv` like education, age, stock of children, marital status, religion, rural area or the number of doctors. Have a look at the *info box* to find out more about the potential control variables. In this exercise you can add controls like you want and have a look at how strong the effect is.
+
+#< info "Information about the potential control variables"
+* rural: Dummy variable that is equal to $1$ if the woman was living in a rural area.
+* electricity: Dummy variable that is equal to $1$ if the household had electricity. We will look at this variable in detail in exercise 7.
+* tv: Dummy variable that is equal to $1$ if the household owned a TV. We will look at this variable in detail in exercise 7.
+* catholic: Dummy variable that is equal to $1$ if the woman was catholic.
+* yrs_edu: Years of woman's education.
+* married: Dummy variable that is equal to $1$ if the woman was married.
+* employed: Dummy variable that is equal to $1$ if the woman was working. We will look at this variable in detail in exercise 7.
+* yrsedu_head: Years of education from the family head.
+* age: Woman's age.
+* stock: Number of children the woman already had.
+* ipc_gdp: The authors neither describe this variable nor use it. It was probably used to generate the index of potential consumption that is listed next. It could mean something like index of potential consumption that is related to the GDP of the AMC.
+* ipc_renta: Index of potential consumption generated by the "Instituto Target Pesquisas e Servicos de Marketing". This variable is indicating the purchasing power and is constant for everybody living in the same AMC. 
+* wealth_noTV: Is computed from a set of dummy variables about the housing quality and ownership of persistent goods. The housing situation was described by the variables water, sanitation and electricity. Persistent goods included a radio, a fridge and a car. Note that owning a TV was not considered. 
+* Doctors: Number of doctors in the AMC for every $1000$ people.
+* agesq: Woman's age squared. This is allowing for a non-linear relationship between age and fertility. This makes probably sense as with every additional year the probability will not stay the same that she will become a mother.
+* stocksq: Stock of children the woman already had squared. This is allowing for a non-linear relationship between number of children and fertility.
+* globocov1lead: Dummy variable that is equal to $1$ in period $t$ if the area received the signal one year later in $t+1$. We will look at this variable in detail in exercise 6.3.
+#>
+
+Add whatever control you think could have had an influence on the birth rate with a "+" to the formula. For example the marital status, the woman's education and a wealth index are already added. Add other ones and try out how huge the effect on fertility is. Always click *check* to look at the output. When you want to change the controls you have added you can click *edit* afterwards, change your code and click *check* again. 
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_2_Regression_Interpretation__3",optional=TRUE, results='asis'}
+#< task_notest
+# Run the regression. Vary with the included controls.
+reg = felm(B~globocoverage1+married+yrs_edu+wealth_noTV | year+amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+stargazer(reg, type = "html")
+
+# For visualization. The explanation is underneath the graphic. 
+library(regtools)
+effectplot(reg, source.data = Indiv_sample2)
+#> 
+```
+
+#< award "Fixed effects regression with felm!"
+Correct! You understood the syntax of the formula! Remember it as we are going to use it several times. 
+#>
+
+The command `effectplot()` from the package `regtools` is showing you graphically the coefficients from the regression you have run before. For dummy variables you can interpret the effect shown as the influence on the dependent variable if the dummy changes from $0$ to $1$ keeping all the other variables constant. For non-binary variables the number is showing you ceteris paribus the change from the lowest $10 \%$ to the highest $10 \%$. The color indicates if it has a positive (blue) or negative (red) effect on the probability of giving birth. An effect plot is a nice way to visualize the strength of the impact on the dependent variable. 
+
+You might have already run the following regressions but I want to look at the following two in detail as the authors refer to them from time to time in their paper. We include education, age, age squared, stock of children, stock of children squared, a wealth indicator, marital status, catholic religion, rural area, number of doctors and an index of potential consumption as control variables. We still control for area and time fixed effects and we cluster at the AMC level. The following regressions differ in one variable, namely in the measurement of education. In the first column we use the education of the family head and in the second one we use the woman's education. When you look at the output having clicked *check* what can you say about the influence of education? Are they significant at the $5 \%$ level? It might need a few seconds so do not be impatient.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_2_Regression_Interpretation__4",optional=TRUE, results='asis'}
+#< task
+# Considering education of the family head.
+reg4 = felm(B~globocoverage1+yrsedu_head+age+agesq+stock+stocksq+wealth_noTV+married+catholic+rural+Doctors+ipc_renta | year+amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Considering woman's education.
+reg5 = felm(B~globocoverage1+yrs_edu+age+agesq+stock+stocksq+wealth_noTV+married+catholic+rural+Doctors+ipc_renta | year+amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+stargazer(reg4, reg5, digits = 4, type = "html")
+#> 
+```
+
+
+```{r "4_2_Regression_Interpretation__5",optional=TRUE}
+#< task
+# Is there a significant influence of the education of the family head on fertility?
+# Replace the ??? with "yes" or "no" and do not forget to delete the comment sign afterwards.
+# sol1 = "???"
+
+# Is there a significant influence of the woman's education on fertility?
+# Replace the ??? with "yes" or "no" and do not forget to delete the comment sign afterwards.
+# sol2 = "???"
+#>
+sol1 = "no"
+sol2 = "yes"
+```
+
+#< award "Significance is significant!"
+Correct! As there is not even one star in the first regression we cannot reject the hypothesis that there is no correlation. The probability that we reject the hypothesis but it is actually true is $6.49 \%$. As $6.49 \% > 5 \%$ we do not get a significant effect of the family head's education on fertility. In the second regression however we can reject the null-hypothesis as the p-value is extremely small. We can conclude that the woman's education had a negative and significant effect on fertility. This nevertheless does not tell us anything about causality. Woman's education could have been endogenous which means that she chose more education due to watching novelas as they portrayed rich families for example. It could have also been that she chose less schooling as she already had a child.
+
+Just remember that when we talk about significance and the slopes here we should keep in mind that we are working just with a small sample. Our sample contains only $200,000$ observations but there were around $62$ Million women living in Brazil around 1980 (source: U.S. Department of Commerce (1993)). It is interesting that the authors use a sample with about $2$ million observations in the paper but also did the estimations with the full sample from the census years and the effects they found were almost the same. In our case we are using a sample from the sample and we can still find significant effects with a correct tendency of the slopes. We can therefore conclude that the sample we have taken is large enough for our analysis. As the standard deviation and respectively the p-value (indicated by the stars $*, **, ***$) depend on the number of observations we would probably find a higher significance level if we increased the number of observations we are working with. 
+#>
+
+From both regressions we see that adding controls decreases the influence of Globo coverage to approximately $-0.0065$. This means that a woman living in an area that received the signal in any year was about $0.65$ percentage points less likely to become a mother. This is about $6.9$ percent of the mean as $0.0065/0.094 \approx 0.0691$. The coefficient of `globocoverage1` stays negative and significant. We therefore can stick to our idea that watching novelas had an influence on women's decisions about the number of children they wanted to have. Note that the authors find an effect that is slightly lower around $0.5$ percentage points decrease in probability of giving birth when the area received the signal. You will also see that coefficient when you go on and load the authors' results in the next chunk.
+
+Having looked at education I want to have a look at the strength of the other controls as well. We stick to regression $5$. We load the authors' results here as the coefficients from the other control variables also vary with the sample we take. Just click *check* and wait until you see the output.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "4_2_Regression_Interpretation__6",optional=TRUE, results='asis'}
+#< task
+# Load the data.
+load("reg5.results")
+
+# Output.
+stargazer(reg5, type = "html")
+#>
+```
+
+<br>As we have already looked at the first two variables `globocoverage1` and `yrs_edu` we do not interpret them again. Just notice that the coefficient of Globo coverage is smaller than the one we have calculated in our regression like I have already mentioned above. 
+
+The next variables to interpret are `age` and `agesq`. To analyze the effect of a square term think of the following: Suppose our formula was only $$B_{it}=\beta_{0}+\beta_{1}*age_{it}+\beta_{2}*agesq_{it}+u_{it}$$ Then taking the derivative with respect to the age we obtain: $$\frac{\partial B}{\partial age}=\beta_{1}+2*\beta_{2}*age_{it}$$ When we plug our estimates in this formula we obtain $$\frac{\partial B}{\partial age}=0.0236+2*(-0.431)*age_{it}$$ This means for example that for a woman aged $30$ one additional year was ceteris paribus associated with a change of giving birth of about $$0.0236+2*(-0.431)*30=-12.9064$$ percentage points. Suppose the woman was $40$ the probability of giving birth decreased ceteris paribus further to $-17.2164$ percentage points as $0.0236+2*(-0.431)*40=-17.2164$. We see that the age had a strong effect on fertility that was getting even stronger when the woman became older (source: Wooldridge (2006), p.75). This effect is much higher than the Globo effect we are analyzing.
+
+Having a look at the influence of `stock` and `stocksq` we first of all have to note that the influence of the stock of children is not significant. However let us interpret both influences, as just looking at one would not make sense. We use the same idea as for the age and the squared age: Suppose the birth variable was only dependent on the stock of children the woman already had and derive this formula. Then plug the estimates into it and obtain: $$\frac{\partial B}{\partial stock}=-3.259*10^{-4}+2*(8.895*10^{-2})*stock_{it}$$ For a woman that had no children yet the $stock_{it}$ variable is equal to $0$ such that one additional child was ceteris paribus associated with a change in probability of giving birth of $-3.259*10^{-4}$. This negative effect is quite low in comparison to the Globo coverage coefficient of around $0.005$. However when the woman had already three children one additional child was associated ceteris paribus with an increase in probability of giving birth of around $0.5334$ as $$-3.259*10^{-4}+2*(8.895*10^{-2})*3 \approx 0.5334$$ This is a very strong and positive effect on fertility. The comparison between the two women -- one without a child and one with three children -- shows us that when the woman already had a child the probability that she would get another one increased keeping all the other influences constant. 
+
+The influence of wealth on fertility is shown by the coefficient from the variable `wealth_noTV`. The value is $-0.01623$ thus negative and about $3$ times higher than the influence of Globo coverage. We can see that wealth had a negative effect on fertility. As the variable is computed from a set of dummy variables about the housing quality and ownership of persistent goods it is quite difficult to interpret. We can only say that when the wealth indicator increased by one unit the probability of giving birth decreased ceteris paribus for about $1.6$ percentage points. We do not know to what the change of the wealth indicator by one is associated however.
+
+Our next influence to interpret is the marital status. The variable `married` is a dummy variable such that we can interpret as follows: If the woman married the probability of bearing a child increased for about $5.881$ percentage points. This positive influence on fertility is about $10$ times higher than the negative effect of the TV signal we are analyzing in this problem set. 
+
+The following regressor `catholic` is capturing the religion. Interpreting the coefficient we find that when the woman was catholic she was ceteris paribus $0.365$ percentage points less likely to become a mother in comparison to if she was not. This means that the religion had a negative effect on fertility that might be due to the fact that people needed to marry before they decided to get children. This maybe delayed first births and resulted in a lower fertility. However the effect is quite low -- also lower than the influence of Globo coverage.
+
+If the woman was living in a rural area is also influencing the birth variable. The coefficient of `rural` is $-0.00479$ thus negative and approximately as high as the coefficient of `globocoverage1`. This means that when the woman was living in a rural area she was $0.479$ percentage points less likely to become a mother in comparison to if she was living in an urban area. 
+
+`Doctors` is the next variable we have included in the regression. The coefficient is $0.08155$ but the influence is not significant such that we should be very careful when we interpret it. Let us only notice here that it is positive which seems to make sense: When the area had a better health care people were more likely to become parents as the newborns were more likely to survive. As in the census the number of children alive was reported from which the authors constructed the variable `B` this makes sense to influence the outcome variable.
+
+The last control variable `ipc_renta` capturing the purchasing power in the AMC has a negative and significant effect on fertility. The coefficient is $-0.3608$ which shows that there is a strong affect that is much higher than the one of the TV signal by Globo. As we do not know how the variable was exactly created we can only say that if the variable increased by $1$ the probability of giving birth decreased ceteris paribus for about $36.08$ percentage points. We do not know what a change by $1$ unit means so we cannot interpret it more precisely.
+
+Now we are done with looking at all the other control variables from regression $5$. We could see that apart from the Globo coverage there are a couple of other interesting and significant influences on fertility. We might not need them for our analysis but having looked at them shows us that Globo coverage has not such a huge influence on people's decisions like other ones, for example wealth or age.
+
+*This exercise refers to page 8, 10 and 14 - 16 in the paper.*
+
+## Exercise 5 Who was affected -- Heterogeneous effects
+
+In the last exercise we found out that there is a negative and significant correlation between Globo coverage and fertility. What we are interested in now is the following question: "Who was affected most of the Globo coverage?". For example we want to know if richer people were more or less affected by the Globo signal than poorer ones. We could imagine on one hand that poorer people watch less TV in comparison to richer people, as they do not have a TV set. On the other hand we could imagine that poorer people watch more TV as richer individuals because they maybe spend their time rather in front of the TV than for example in restaurants meeting up with other people. Moreover education could have influenced fertility as better educated people are maybe more likely to read a book than to watch TV. Another question we are going to answer is which age was affected most. Were the younger women more likely to get fewer children or were they just more likely to stop childbearing when they became older?
+
+### 5.1 Education and wealth
+
+We want to find out if Globo coverage had different effects on fertility depending on the socioeconomic status. Both Globo coverage and the socioeconomic status are independent variables in the regressions that we have estimated in exercise 4. What is new now, is that we want to allow for interaction between these variables. To do this we add interaction terms as new controls to our regressions from the last exercise. The formula becomes: $$B_{ijt}=\beta_{0}*X_{ijt}+\beta_{1}*globocoverage1_{jt}+\delta * (globocoverage1_{jt} * x_{ijt})+\mu_{j}+\lambda_{t}+u_{ijt}$$ with
+
+$B_{ijt} \quad \text{number of children of person } i \text{ in area } j \text{ at time } t$<br>
+$X_{ijt} \quad \text{set of time-varying controls}$<br>
+$x_{ijt} \quad \text{socioeconomic status}$
+
+*Source: Stock and Watson (2007), p.277*
+
+The variables we are going to use for the socioeconomic status $x_{ijt}$ are the women's education, the education of the family head and wealth. The terms $globocoverage1_{jt} * x_{ijt}$ are already stored in the columns `cov1edu`, `cov1eduhd` and `cov1wealth` from the data frame `Indiv`. Thus we do not need to prepare the data but can rather run the following regressions by clicking *check*. It needs a few seconds so don't be impatient.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "5_Who_was_affected_",optional=TRUE, results='asis'}
+#< task
+# Load the data.
+load("Indiv_sample2")
+
+# Run the regressions.
+# Considering women's education.
+reg1 = felm(B~globocoverage1+cov1edu+yrs_edu+wealth_noTV+married+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Considering education of family head.
+reg2 = felm(B~globocoverage1+cov1eduhd+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Considering wealth.
+reg3 = felm(B~globocoverage1+cov1wealth+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = Indiv_sample2$weight, data = Indiv_sample2)
+
+# Output.
+stargazer(reg1, reg2, reg3, type = "html")
+#>
+```
+
+<br>When you look at the first regression you can see that the negative effect on fertility is strongest when the woman was not that well educated. If she had not received any schooling the effect of Globo coverage on fertility is about $1.6$ percentage points. If she received $4$ years of schooling the effect decreases to $-0.016+4*0.002=-0.008$ e.i. around $0.8$ percentage points. The Globo coverage effect becomes zero once she received about $8$ years of education. We can do the same with regression $2$ and compute that there was almost the same effect on fecundity for the education of the family head. We can conclude that the effect of Globo coverage on fertility was strongest when the woman was living in a not well-educated family.
+
+When you look at regression $3$ first of all we note that neither the influence of Globo coverage nor `cov1wealth` is significant as the p-values are higher than $5 \%$. However the effects in the full sample are significant on the $1$ percent level. The coefficient of `globocoverage1` and `cov1wealth` are $-0.0043$ and $0.0018$ respectively. We can see that our estimates are quite close to that but as our sample is too small for this regression we do not find significant effects. 
+<br>The regression is revealing the influence of wealth on the strength of the Globo coverage effect on fertility. Here it can be shown with the same idea as from regression $1$ that the effect was strongest for women living in poorer households. This is important to know when we think about TV as a medium of information. It seems as if poorer and less educated households were easier to influence via the screen. Richer and better educated households probably received information via written media and from their community. We are going to remember that in exercise 9, the conclusion.
+
+
+### 5.2 Age effects
+
+As mentioned in the introduction of this chapter we are taking care of age effects in our second part. There are two questions we want to answer: Who was affected most? And how did the length of exposure affect woman's behavior? We are going to answer these questions with another set of regressions and a graphical visualization. 
+
+#### Graphic
+
+First of all let's look at a nice plot. You already know how to make ggplots and this time we are following exactly the same steps. There are just two differences: First of all we want to add a statistic summary that allows us to calculate before plotting and second we are making a bar plot with multiple bars per "x" value. If you do not know yet how this is supposed to look like you will find out in a few steps. Import the data `Cohort` and `AMC_Data` by clicking *check*.
+
+```{r "5_Who_was_affected__2"}
+#< task
+# Import the data.
+Cohort = read.dta("Cohort.dta")
+AMC_Data = read.dta("AMC_Data.dta")
+#>
+```
+
+When you click on *data* you find out that in `Cohort` we can find all the information about how many children the different age groups had on average per census year. To obtain comparable results with the regressions we have run looking at the number of children we should exclude the biggest AMCs. The authors always exclude them because when they constructed the variable `globocoverage1` they used information about transmitting stations and their radius to find out if the area received the signal. If some part of the AMC received it they gave the whole AMC the characteristic of being covered. As this might not be true especially for big AMCs they exclude the highest $5$ percent of area size. The biggest AMCs are already excluded in the samples from the data frame `Indiv` that we have loaded from time to time. Although I have just explained why we should exclude them we will skip this here as in the plot we won't see a difference and it is quite boring to delete them. If you want to know how it would be done you can have a look at the *info box*. 
+
+#< info "What if we deleted the big AMCs?"
+The data frame `Cohort` that we are using misses the information about the AMC size. Any information about AMCs can be found in the dataset `AMC_Data`. In the latter shares and averages can be found like for example the average age in the AMC or the share of people that were catholic. We `summarise()` the AMC area size per AMC and save this as a new data frame with the name `AMC_Data_for_Cohort`. Now we want to add this information as a new column to the data frame `Cohort`. We can do this by using a join. Joins are explained in exercise 6.3 in further detail. We need a left join here. Having stored this new data frame in the variable `Cohort.AMC` we can filter with the `filter()` command from the package `dplyr`. $5994$ is the $95$ percentile which is also verified in exercise 6.3. <br> This is the code we would run:
+
+```{r "5_Who_was_affected__3",eval=FALSE}
+# Average AMC size per AMC.
+AMC_Data_for_Cohort = summarise(group_by(AMC_Data, amc_code), geoarea = mean(geoarea))
+
+# Merge the two data frames and add to every line in Cohort the matching information from AMC_Data_for_Cohort.
+Cohort.AMC = left_join(Cohort, AMC_Data_for_Cohort)
+
+# Delete the huge AMCs. 
+Cohort.small = filter(Cohort.AMC, geoarea < 5994)
+```
+#>
+
+We still need to execute one more step before we can plot the data. To obtain multiple bars per "x" value we need to use `summarise()` with `group_by()` again. We want to have the average number of children per cohort and per census wave. For example we want to know how many children a woman aged $20$ to $24$ had on average both in the census year 1970 and in the census year 1980. Click *check*.
+<br>*In case we used the data without the big AMCs we would have to change the variable `Cohort` to `Cohort.small`.*
+
+```{r "5_Who_was_affected__4"}
+#< task
+# Average number of children per cohort.
+dc = summarise(group_by(Cohort, cohort, wave), mean_child = mean(child_alive))
+#>
+```
+
+For the plot we need to load the package `ggplot2` again. The required data is the data frame `dc`. For every census year we want to know how many children the women had on average depending on their age or to be more precise their cohort. As we have three census waves we want to plot three bars next to each other for each cohort. We therefore use a `factor()`. On the y-axis we plot as mentioned the average number of children using a function, in particular the function `mean()`. We therefore add a statistic summary to the background that allows us to calculate before plotting. Setting position to `position_dodge()` we make sure that the bars are plotted next to each other and not on top of each other which is the default way to plot factors. The rest is pretty self-explanatory. Click *check* to look at the graph.<br>
+*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "5_Who_was_affected__5",optional=TRUE, fig.height=7, fig.width=8}
+#< task
+# Load the package ggplot2 again.
+library(ggplot2)
+
+# Assign the background to the variable p.
+p = ggplot(dc, aes(x = cohort, y = mean_child, fill = factor(wave)), color = factor(wave))
+
+# Add a statistic summary.
+p1 = p +  stat_summary(fun.y = mean, position = position_dodge(), geom = "bar", data = dc)
+
+# Plot it.
+p1
+#>
+```
+
+So what can we conclude from the graph? First of all we see that the average number of live births decreased over time. The green and blue bars are most of the times much smaller than the red ones. This observation is however not true for the first two groups age $15$ to $19$ and $20$ to $24$. There we cannot see any remarkable development over time. The authors notice that delaying first births did not seem to be the case in Brazil. One argument they mention is that marital patterns stayed quite constant over the years. The difference between the waves is just observable for women aged $25$ and older. The authors explain this by an increased spacing between births as well as by stopping giving birth. We can also see that the difference between the bars per wave increases as the women's ages increase until they reach the age of $40$. Therefore the authors suggest that women decided quite late in their lives to stop getting children. 
+
+The following regressions are verifying our findings from the table. We are not finding out a lot more but I want to include it for completeness. In addition we have not yet answered the question how the length of exposure to novelas affected women's behavior.
+
+#### Regression
+
+In the first three regressions we are running exactly the same regressions as in exercise 4 the only difference is that we just take a subset of individuals depending on their age. When the effect of Globo coverage varies across these groups we have found heterogeneity. Click *check* and look at the output. 
+<br>*We use a larger sample with 400,000 observations here to obtain significant results. This is necessary as making subsets reduces the number of observations per regression.*
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "5_Who_was_affected__6",optional=TRUE, results='asis'}
+#< task
+# Load the data for regression 1 to 3.
+load("Indiv_sample1")
+
+# Make subsets for the different age groups for regression 1 to 3.
+Indiv.col1 = filter(Indiv_sample1, age >= 15 & age < 25) 
+Indiv.col2 = filter(Indiv_sample1, age >= 25 & age < 35) 
+Indiv.col3 = filter(Indiv_sample1, age >= 35 & age < 45) 
+
+# Run the regressions.
+reg1 = felm(B~globocoverage1+age+agesq+stock+stocksq+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta|year+amc_code | 0 | amc_code, weights = Indiv.col1$weight, data = Indiv.col1)
+
+reg2 = felm(B~globocoverage1+age+agesq+stock+stocksq+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta | year+amc_code, weights = Indiv.col2$weight, data = Indiv.col2)
+
+reg3 = felm(B~globocoverage1+age+agesq+stock+stocksq+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta | year+amc_code | 0 | amc_code, weights = Indiv.col3$weight, data = Indiv.col3)
+
+# Output.
+stargazer(reg1, reg2, reg3, type = "html")
+#>
+```
+
+<br>We can see from the first regression that for the youngest group age $15$-$24$ there is no significant effect of Globo coverage on fertility. When we remember the graph above this makes sense, as there was no big difference observable between the bars. For women aged $25$ to $34$ we do find a significant effect of Globo coverage on fecundity and it is stronger than the effect in regression $3$ for the subset of women aged $35$ to $44$. This is also consistent with the stopping behavior we have mentioned in the graphical approach where we said that the difference between the bars increases as the age increases until the age of $40$. 
+
+The following regressions are taking into account how long the woman had the possibility to watch novelas. The two regressions differ in the age range the women have. In the first regression women aged $30$ to $49$ are considered and in the second regression only women from $40$ to $49$ are taken into account. Click *check* to run the following regressions and look at the output. 
+<br> *As the results with our normal sample differ from the results the authors have in their paper we use a different sample here.*
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "5_Who_was_affected__7",optional=TRUE, results='asis'}
+#< task
+# Load the data.
+load("Indiv_age_eff")
+
+# Make a subset for the fifth regression.
+Indiv.col5 = filter(Indiv_age_eff, yrsexp4049 >= 0)
+
+# Run the regressions.
+reg4 = felm(B~yrsexp1019+yrsexp2029+yrsexp3039+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = Indiv_age_eff$weight, data = Indiv_age_eff)
+
+reg5 = felm(B~yrsexp2029+yrsexp3039+yrsexp4049+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = Indiv.col5$weight, data = Indiv.col5)
+
+# Output.
+stargazer(reg4, reg5, type = "html")
+#>
+```
+
+<br>These regressions now finally answer the last question: How did the length of exposure to Rede Globo affect women's behavior? In column $1$ we see the effect of exposure to Globo at different ages for women aged $30$ to $49$. One more year exposure to Globo at the age of $10$ to $19$ was associated with a decrease in probability of giving birth of approximately $0.2$ percentage points. When she was exposed one more year to Globo at the age of $20$ to $29$ the probability of giving birth declined even more, in particular about $0.4$ percentage points. Being exposed to Globo one additional year later at the age of $30$ to $39$ resulted in the strongest decline of fertility of about $0.6$ percentage points. We see that the older the woman was, the more likely she was to be affected negatively by the Globo coverage.
+<br>In comparison to the first column we look at women aged $40$ to $49$ in the second column. Here we can also see that one more year exposure to Rede Globo was associated with a higher influence on fertility when the woman was older. When she was aged $30$ to $39$ one more year exposure was associated with a decrease in probability of giving of approximately $1$ percentage point whereas exposure at the age of $20$ to $29$ resulted in a lower probability of $0.9$ percentage points. However, the effect was less strong when she was older than $40$. 
+
+*This exercise refers to page 6, 8 and 17 - 19 in the paper.*
+
+## Exercise 6.1 Years around Globo entry -- Falsification tests
+
+When we estimate the Globo coverage effect on fecundity we use the variation in Globo entry as an independent variable. We can however observe that richer areas received the signal earlier than poorer ones thus the variable `globocoverance1` is not random. If the Globo signal was however uncorrelated with previously existing fertility trends "after controlling for time invariant controls, time invariant area characteristics, and a common trend" (source: La Ferrara et al. (2012b), p.20) this would not matter. 
+<br>Exercise 6 is using various methods to check if this assumption is correct. We start with adding the years around Globo entry as independent variables and go on with checking if Globo entry is a dependent variable. Afterwards we run placebo regressions and as a last step we suppose Globo entry was random and look if the results differ from the one we could observe in Brazil.
+
+We want to find out if the impact of Globo entrance had already a significant negative effect on fertility before it actually happened. In this case there could be an unobservable shock. When we run a regression including the years before and after the actual Globo entry year as independent variables as well there should not be a significant effect on fertility for the years before Globo entry but maybe for the years after. We use $9$ years before and $9$ years after the actual Globo entry. As the regression result depends strongly from the sample we are taking we load the results obtained with the complete sample. How the regression was run is explained in the *info box*. What we want to do now is to plot the estimates and their confidence intervals. To obtain the plot we follow the same steps as in exercise 2: preparing the data and then plot it. 
+
+#< info "Code regression exercise 6.1"
+```{r "6_1_Years_around_Globo_entry_",eval=FALSE}
+## Data.
+    # Load the census sample provided by the authors.
+    Indiv = read.dta("Indiv.dta")
+    
+    # Delete the huge AMCs.
+    Indiv = filter(Indiv, geoarea80 < 5994)
+
+## Preparing the data.
+    # Create a dummy variable that is equal to 1 if year == yr1stcov that means the census year is equal to the year of first coverage. Save this variable in a column named t.
+    Indiv$t = ifelse (Indiv$year == Indiv$yr1stcov, 1, 0)
+    
+    # Do the same for the 9 years before and after the actual Globo entry.
+        # Generate a matrix full of zeros that has 18 columns and the same number of rows like Indiv. 
+        # Name the columns t_m1, ..., t_m9 and t_p1, ..., t_p9. 
+        # The matrix is supposed to be a data frame. 
+        mat = matrix(data = 0, nrow = NROW(Indiv), ncol = 18)
+        colnames(mat) = c(paste0("t_m", 1:9), paste0("t_p", 1:9))
+        mat = as.data.frame(mat)
+    
+    # Add the generated matrix to the existing data frame Indiv.
+    Indiv = cbind(Indiv, mat)
+
+    # For every new generated column change the 0 to 1 if the census year equals the year of Globo entry plus or minus 1 to 9.
+    for(k in 1:9){
+        colname_m = paste0("t_m", k)
+        colname_p = paste0("t_p", k)
+        Indiv[,colname_m] = ifelse (Indiv$year == Indiv$yr1stcov - k, 1, 0)
+        Indiv[,colname_p] = ifelse (Indiv$year == Indiv$yr1stcov + k, 1, 0)  
+    }
+
+## Regression.
+    # Run the regression taking the new variables into account.
+    reg4 = felm(B~t_m9+t_m8+t_m7+t_m6+t_m5+t_m4+t_m3+t_m2+t_m1+t+t_p1+t_p2+t_p3+t_p4+t_p5+t_p6+t_p7+t_p8+t_p9
+              +married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq
+               | year+amc_code, weights = Indiv$weight, data = Indiv)
+```
+#>
+
+### Step 1: preparing the data
+
+To understand the following code and solve the exercise let us have a look at the regression output first. Click *check*.
+
+```{r "6_1_Years_around_Globo_entry__2",results='asis'}
+#< task
+# Load the data.
+load("reg4.results")
+
+# Look at the output to understand the following code.
+stargazer(reg4, type = "html")
+#>
+```
+
+<br>You can see that the first $19$ estimates are the ones we are interested in in this exercise. You can already see that none of the estimates before $t$ is significant. Now let's go on and keep this in mind. To obtain a confidence interval you use the command `confint()`. Use this command and save the confidence intervals from all estimates in the variable `CI`. 
+
+```{r "6_1_Years_around_Globo_entry__3"}
+#< task
+# Compute the confidence intervals.
+
+#>
+CI = confint(reg4)
+#< hint
+display("CI = ... Now get the confidence intervals from the regression 4.")
+#>
+```
+
+In the following we take into account that we are only interested in the first $19$ variables. We add a new column to the data frame in which we indicate the `index` starting at $-9$. We then eliminate all estimates that have an index that is greater than $9$ such that we are left with the first $19$ estimates which is exactly what we wanted to have. As a last step we give the new generated data frame new column names. Click *check*.
+
+```{r "6_1_Years_around_Globo_entry__4"}
+#< task
+# The estimates as a vector.
+coeff = c(reg4$coefficients)
+
+# Generate an index vector and add it as well as the confidence intervals to the estimates. A data frame is generated such that we can use filter afterwards.
+index = (-9 : (length(coeff) - 10))
+coeff2 = as.data.frame(cbind(coeff, index, CI))
+
+# Filter coeff2 to get the first 19 estimates.
+coeff2 = filter(coeff2, index <= 9)
+
+# Change column names.
+names(coeff2) = c("coeff", "index", "p_2.5", "p_97.5")
+#>
+```
+
+### Plotting the data
+
+As you have already obtained nice plots you will accomplish this. If you need help do not hesitate to use the *hint* option. As usual we use the package `ggplot2`. We want to plot the index on the x-axis and the coefficients on the y-axis. Use this information to obtain the background that we assign as usual to the variable `p`. 
+
+```{r "6_1_Years_around_Globo_entry__5"}
+#< task
+# Load the library ggplot2.
+library(ggplot2)
+
+# 1.) Assign the background to the variable p.
+
+#>
+p = ggplot(coeff2, aes(x = index, y = coeff))
+#< hint
+display("Use ggplot(data, aes(x=..., y=...)) to create the background. The column names you need are all coming from the data frame coeff2. Remember that we changed the names in the very last step.")
+#>
+```
+
+We want to have blue dots for the estimates connected by a line. As a last step we want to add the confidence intervals. `geom_errorbar(aes(ymin = ..., ymax = ...))` is the necessary command. The error bar is supposed to be dark grey. 
+
+```{r "6_1_Years_around_Globo_entry__6"}
+#< task
+# 2.) Assign the plot to p1. Replace the ??? with the missing parts of the plot and do not forget to delete the comment sign afterwards.
+# p1 = p + ??? + ??? + ???
+#>
+p1 = p + geom_point(col = "blue") + geom_line() + geom_errorbar(aes(ymin = p_2.5, ymax = p_97.5), col = "darkgrey")
+#< hint
+display("Remember that you can add anything to the plot by using the + sign. What do you want to add? Blue points, a line and the error bar in darkgrey. Most of the times the necessary commands in ggplot are generated in the form geom_... Also remember that the data you need is the data frame coeff2.")
+#>
+```
+
+Now plot it.
+
+```{r "6_1_Years_around_Globo_entry__7",fig.height=7, fig.width=8}
+#< task
+# 3.) Plot it.
+
+#>
+p1
+#< hint
+display("To show the plot just write the name of it.")
+#>
+```
+
+#< award "Progressive ggplot2 plot!"
+Well done! You have obtained a nice chart using ggplot2. As you probably have noticed we have used this package for many different plots now. This is one great feature of the package ggplot2. You can add many different graphics to one background such that you can plot almost everything you want or need. What have we used so far? Lines and points, easy and advanced histograms, new names and error bars. Good job!
+#>
+
+We can observe that there is movement up and down around $0$ before $t = 0$. Considering the confidence intervals we can see that they are getting smaller as the index increases up to the point where the index is equal to $0$. This graphical observation fits well to the one we have already made from the regression: There was no significant effect for the years before Globo entry. When the index changes from $0$ to $1$, thus from the actual Globo entry year to the year after, the line sharply declines to $-0.005$. This also makes sense, as there is around one year of delay in fecundity accounting for the time of pregnancy. It afterwards stays more or less at the same level. When we remember the assumption we wanted to check we can be quite sure that the birth rate decline is not just due to unobservable fertility trends. If there were they would have needed to be differently for different AMCs as the year of Globo entry varies across AMCs.
+
+*This exercise refers to page 12, 19 - 21 in the paper.*
+
+## Exercise 6.2 Globo entry as dependent variable -- Falsification tests
+
+What we want to make sure next is, that there was no correlation between preexisting fertility rates and the entrance of Globo into the areas at the beginning of the Globo signal expansion. We want to find out if the year of Globo coverage is a dependent variable, depending on various preexisting factors as well as on the preexisting birth rate. We therefore only take the data from the census year 1970. In the data frame mostly averages and shares are reported so for example the average number of years of the education head can be found here as well as the share of people that were living in a rural area. As a short warm up we want to estimate the $95 \%$ quantile of the `geoarea`. I have already mentioned that the authors always delete the highest $5 \%$ in AMC area in their analysis. If you have skipped exercise 5 look at the *info box*. The number we have used in this exercise and in others for filtering was $5994$ $km^2$.
+
+#< info "Why do the authors delete the huge AMCS?"
+When the authors constructed the variable `globocoverage1` they used information about transmitting stations and their radius to find out if the area received the signal. If some part of the AMC received it they gave the whole AMC the characteristic of being covered. As this might not be true especially for big AMCs they exclude the highest $5$ percent of area size. 
+#>
+
+A k-quantile is computed with the command `quantile(data, k)`. The data is supposed to be a vector. The default quantile is for continuous samples but we have a discrete sample here. This is why we have to add `type = 1`. Assign the quantile to the variable `q`. Show it afterwards.<br>
+*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "6_2_Globo_entry_as_dependent_variable_",optional=TRUE}
+#< task
+# Import the data.
+AMCdata1970 = read.dta("AMCData1970.dta")
+
+# Calculate the quantile and assign it to the variable q. 
+
+
+# Now show it.
+
+#>
+q = quantile(AMCdata1970$geoarea, 0.95, type = 1)
+#< hint
+display("Assign to q the 95 percentile from the AMC area. The column you need is named geoarea. Take care that we have a discrete sample. Do not forget to show it afterwards.")
+#>
+q
+
+```
+
+You see that it was correct and the $95$ percentile has the value $5994$.
+
+Now we run the regression $$GloboYear_{j}=\beta*X_{j}^{1970}+\lambda*B_{j}^{1970}+u_{j}$$ We start without any controls, then we add state fixed effects in regression $2$. In the third and forth regression other controls are included as well. The last one also contains state fixed effects. Click *check*.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "6_2_Globo_entry_as_dependent_variable__2",optional=TRUE, results='asis'}
+#< task
+# Import the data.
+AMCdata1970 = read.dta("AMCData1970.dta")
+
+# Run the regressions.
+# No controls.
+reg1 = lm(yr1stcov~B70, data = AMCdata1970)
+
+# Considering state fixed effects.
+reg2 = felm(yr1stcov~B70 | uf_code | 0 | uf_code, data = AMCdata1970)
+
+# Considering controls.
+reg3 = lm(yr1stcov~B70+age+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta, data = AMCdata1970)
+
+#Considering controls and state fixed effects.
+reg4 = felm(yr1stcov~B70+age+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta | uf_code | 0 | uf_code, data = AMCdata1970)
+
+# Output.
+stargazer(reg1, reg2, reg3, reg4, type = "html")
+#>
+```
+
+<br>*The regression results we obtain are not the same as the authors obtain in their paper. Nevertheless they match with their results executing their STATA code.* 
+
+Without any controls in the first regression we receive a strong positive and significant effect of the birth variable `B70` on `GloboYear`. When we add state fixed effects in regression $2$ the positive effect strongly declines and is not longer significant. In regression $3$ and $4$ controls are added and neither in the case of no state effects nor in the case taking state fixed effects into account there is a significant effect of `B70` on `GloboYear`. We therefore can say that there was no significant correlation between Globo entry and initial fertility. In other words: Globo coverage does not seem to be an outcome variable which makes us believe that our assumption was not wrong.
+
+*This exercise refers to page 21 - 22 in the paper.*
+
+## Exercise 6.3 Placebo regressions -- Falsification tests
+
+### Future entry as independent variable
+
+The idea of placebo regressions is the same like in medicine when a new drug is tested. One group gets the real pill, the other one just a placebo and then it is checked if there is a significant difference between these groups (source: Stock and Watson (2007), p.468). In our first placebo regression we consider future Globo entry as independent variable and check if there is a significant effect on child bearing in the actual period. If we find such an effect there was probably an unobservable trend that resulted in a fertility decline. We therefore use `B` as dependent variable and not only `globocoverage1` but also `globocov1lead` as independent variables. `globocov1lead` is a dummy variable that is equal to $1$ in period $t$ if the area received the signal one year later in $t+1$. Click *check* to run the regressions. It might need a bit so do not worry.
+<br>*We are using a sample with more observations here as the other one is too small to obtain significant results.*
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "6_3_Placebo_regressions_",optional=TRUE, results='asis'}
+#< task
+# Load the data.
+load("Indiv_sample1")
+
+# Run the regressions.
+# Without considering controls.
+reg1 = felm(B~globocoverage1+globocov1lead | year+amc_code | 0 | amc_code, weights = Indiv_sample1$weight, data = Indiv_sample1)
+
+# Considering controls.
+reg2 = felm(B~globocoverage1+globocov1lead+age+agesq+stock+stocksq+yrsedu_head+wealth_noTV+married+catholic+rural+Doctors+ipc_renta | year+amc_code | 0 | amc_code, weights = Indiv_sample1$weight, data = Indiv_sample1)
+
+# Output.
+stargazer(reg1, reg2, type="html")
+#>
+```
+
+<br>In the first regression we do not add any controls apart from year and state fixed effects. In regression $2$ controls are added. In both cases we get a negative and significant effect of Globo coverage in period $t$ and no significant effect around zero for $t+1$. This is showing us that future Globo entry had no effect on the birth rate in period $t$. If we had found a significant effect we would have had to rethink our model, as then there would probably have been another unobservable factor that was driving the fertility decline. We might have had omitted variable bias. With the obtained results however we can stick to our hypothesis that Globo coverage influenced fecundity. 
+
+### Entry in neighbor AMC as independent variable
+
+The second falsification test we want to administer is to check if Globo coverage in a neighbor AMC also resulted in a fertility decline in the observed AMC. If this was the case there could be unobservable shocks in the regions that resulted in a decline of the birth rate. The information about neighboring AMCs and their coverage is stored in the dataset `AMC_PlaceboNeigh.dta`. The variable `globoplacebo1` is equal to $1$ if the neighbor AMC received the signal by the given year. We want to add this information to the data frame `Indiv`. We can do this by using a join. Look at the *info box* to find out more and to decide which join to use. 
+
+#< info "Left or right or inner or full join?"
+
+Joins are very useful when you want to add columns to an already existing data frame and there is a "key" to identify an entity in one data frame and in the other one. In the following example the "key" is the `id`. To make clear what is happening in the four different joins look at the joins of the data frames `a` and `b`. 
+
+```{r "6_3_Placebo_regressions__2"}
+a = data.frame(id = c(1:3), B = c(0:2))
+b = data.frame(id = c(2:4), neighbor_coverage = c("yes", "no", "yes!")) #the coding does not make much sense but makes it easier to understand the joins.
+a
+b
+left_join(a, b, by = "id") # Returns for every id in a the matching column from b. If there is no matching column in b it returns NA.
+right_join(a, b, by = "id") # Returns for every id in b the matching column from a. If there is no matching column in a it returns NA.
+inner_join(a, b, by = "id") # Returns only the ids that are in both dataframes a and b. There are no NAs therefore. 
+full_join(a, b, by = "id") # Returns all ids from a and b. NAs are created again. 
+```
+#>
+
+Load the data first of all. Click *check*.
+
+```{r "6_3_Placebo_regressions__3"}
+#< task
+# Load the data.
+AMC_PlaceboNeigh = read.dta("AMC_PlaceboNeigh.dta")
+load("Indiv_sample2")
+#>
+```
+
+Now decide which join to use. It needs a few seconds so don't be impatient.
+
+```{r "6_3_Placebo_regressions__4"}
+#< task
+# Add new column to Indiv_sample2 in which the data about the neighboring AMC is stored. Replace the ??? and decide which join to use.
+# data = ???(Indiv_sample2, AMC_PlaceboNeigh)
+#>
+data = left_join(Indiv_sample2, AMC_PlaceboNeigh)
+#< hint
+display("You want to add a new column indicating the coverage of the neighbor AMC for every individual that is listed in the data frame Indiv_sample2. As Indiv_sample2 is mentioned first in the brackets try a left_join .")
+#>
+```
+
+Now we can run the following regressions by clicking *check*. It also needs a bit so do not become nervous.
+
+```{r "6_3_Placebo_regressions__5",results='asis'}
+#< task
+# Run the regressions.
+reg1 = felm(B~globoplacebo1 | year+amc_code, weights = data$weight, data = data)
+reg2 = felm(B~globoplacebo1+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = data$weight, data = data)
+
+# Output.
+stargazer(reg1, reg2, type = "html") 
+#>
+```
+
+<br>We can see that neither in regression $1$ nor $2$ including controls there is a significant effect of neighbor coverage on the probability of giving birth. It would not make much sense if there was an unobservable trend in this case as then there would have been trends that have the same borders like the AMCs. This is not likely. Our result makes us believe stronger in the validity of our hypothesis. Note that the coefficients found differ from the ones the authors obtained with the full sample but as the impact is not significant we do not want to interpret the coefficients. This is why for us the difference does not matter much here. 
+
+*This exercise refers to page 22 in the paper.*
+
+## Exercise 6.4 Random year of Globo entry -- Falsification tests
+
+Suppose the entrance of the Globo signal into an area was random and not equal to the actual year. The rest stays the same. Then if we ran a regression of Globo coverage on fertility including controls we would expect the Globo coverage influence to be different for every random signal we choose. If we repeat taking a random year, run a regression and store the estimates we would expect the estimates to be random as well or follow some distribution. It should at least be different from the actual coefficient. We plot the coefficients. This is what the last falsification test is doing. As the first part of the procedure takes a lot of time (about $10$ hours for $500$ repetitions) you just need to load the results that are stored in the data frame `plot5_data`. If you are interested in how the results were obtained you can have a look at the *info box*.
+
+#< info "Code random year of Globo entry"
+
+The idea is the following:
+
+*Step 1* We pick a random year for every AMC in the dataset `Indiv`. The random year has to be the same for all individuals living in the same AMC but different from the actual year. These random years are saved in the data frame `ds`.
+
+*How to take a sample year that it is not allowed to be equal to the actual year (say the control year).* 
+To solve this problem we use a trick:
+Take all the years but sample only out of the years in which the last one is not included. 
+If the random year you choose is greater or equal to the control year, add $1$ to it. If it is smaller, nothing changes. A short example for an easier understanding: Suppose you have the years $1$,$2$ and $3$. So you are allowed to either pick $1$ or $2$ (as you excluded the last year). Suppose now your control year is $2$. If you choose as random year the year $1$, $1 < 2$, nothing changes. Your random year is $1$. If you randomly pick year $2$, $2 >= 2$, you add $1$, such that your random year is $3$. In the end you never have year $2$ as a random year and all possible years are picked with the same probability. Note that this is only possible with discrete variables and in a case in which every "step" is possible.
+
+*Step 2* Now join `ds` and `Indiv` to add a new column indicating the random year. Create a new dummy variable in a new column named `globocoverage1_random` which is equal to $1$ if the census year is greater than the `globocoverage1_random` year. That means that the area the person is living in received the random signal by that point. 
+
+*Step 3* As a next step we run the same regression as always including state and time fixed effects and many controls. The difference is that we use the `globocoverage1_random` variable instead of `globocoverage1`. If there occurs a warning during the regression we do not take this estimate but make it run another time. They sometimes happen due to technical problems but they also return a result. It might not be precise so we make it run another time.
+
+*Step 4* We then save the coefficient of `globocoverage1_random`.
+
+**We repeat step $1$ to $4$ $500$ times.**
+
+*Step 5* To repeat these steps easily we write a function that is executing step $1$ to $4$ for only one time. We can then call the function $500$ times to get our repetitions. 
+ 
+*Step 6* We create an empty data frame in the beginning to which we add a new line with every run. This is done with the command `lapply()`. A list is created which is afterwards turned into a nice data frame. This is the one we load in the next task following the *info box*.
+
+```{r "6_4_Random_year_of_Globo_entry_",eval=FALSE}
+# Step 5: Create a function 
+simulate = function(...) {
+ 
+  # Step 1: Create a table in which we summarize the year of first coverage for every AMC.
+  ds = summarise(group_by(Indiv, amc_code), yr1stcov = max(yr1stcov, na.rm = TRUE))
+  # As we cannot compare NAs later on we change them to zeros.
+  ds[is.na(ds)] = 0
+  # Step 1: Create random years that are the same for every individual living in the same AMC.
+    # We want to have random years in the range of 1965 to 2004.
+    years = 1965 : 2004
+    # Our control years are the actual years saved in the column yr1stcov.
+    control = ds$yr1stcov
+    # As described above we exclude the last year from the ones we want to get our random year from.
+    sample.years = years[-length(years)]
+    # Number of individuals we want to take a random year for.
+    size = length(control)
+    # Now take a random year for every individual.
+    sample = sample(sample.years, size, replace = TRUE)
+    # Generate a vector with TRUE/ FALSE depending on if the random year is smaller or greater or equal to the actual year. Remember the trick we are using.  
+    rows = sample >= control
+    # At every row where the actual year is greater or equal the control year add one. If not nothing changes.
+    sample[rows] = sample[rows] + 1
+  # Add the random years in the column temp2_random to the data frame. 
+  ds = mutate(ds, temp2_random = sample)
+  
+  # Step 2: Join ds and Indiv. 
+  # There should not be any NAs when we merge. Therefore we change them to zeros in the column yr1stcov.
+  Indiv$yr1stcov[is.na(Indiv$yr1stcov)] = 0
+  # Use a left_join to add to every individual in Indiv the random year from ds.
+  ds2 = left_join(Indiv, ds, by = c("amc_code"))
+  
+  # Step 2: Create a new globocoverage1_random variable that equals 1 if the AMC received the signal by the census year.
+  ds2$globocoverage1_random = ifelse(ds2$year > ds2$temp2_random, 1, 0)
+
+  # Step 3: Run the regression. If there occurs a warning just return the warning and stop the regression.   
+  reg5 = tryCatch(
+    felm(B~globocoverage1_random+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock  +stocksq | year+amc_code, weights = ds2$weight, data = ds2),
+    warning = function(w) w
+  )
+  
+  # If there occurs a warning start at Step 1 again. 
+  if (is(reg5, "warning"))
+    return(simulate())
+  
+  # Step 4: Save the coefficient. The coefficient of globocoverage1_random is saved in the first line.
+  summary.reg5 = summary(reg5)
+  results = summary.reg5$coefficients[1,]
+
+}
+```
+
+This was the function. To call the function we use the following code. 
+
+```{r "6_4_Random_year_of_Globo_entry__2",eval=FALSE}
+# Load the required packages.
+library(foreign)
+library(dplyr)
+library(lfe)
+
+# Load the data and filter it.
+Indiv = read.dta("Indiv.dta")
+Indiv = filter(Indiv, geoarea80 < 5994)
+
+# Step 6: Create an empty data frame in which we can save the results. 
+reg.results = data.frame()
+
+# Now we call the function from above. We call it 2 times in our example here such that if in any case the program evaluates the code although it should not it would not take that extremely long. A list is created.
+li = lapply(1 : 2, simulate)
+
+# Turn the list into a data frame. 
+library(data.table)
+reg.results = as.data.frame(do.call(rbind, li))
+bind_rows(li)
+# Change the column names.
+names(reg.results) = c("estimate", "sd", "t.value", "p.value")
+  
+# Print the results.
+print(reg.results)
+```
+#>
+
+For the plot we use as you have probably guessed correctly the package `ggplot2` again. We assign as usual the background to the variable `p` such that we can add in plot `p1` an empirical cumulative density function with the command `stat_ecdf()`. In both plots we add a vertical line for the actual coefficient of Globo coverage of $-0.005$ as observed by the authors. Moreover we add a normal density function with mean $0$ and standard deviation $0.0016$. Click *check* here.
+
+```{r "6_4_Random_year_of_Globo_entry__3"}
+#< task
+# Load the data and the package.
+load("plot5_data")
+library(ggplot2)
+
+# Assign the background to the variable p.
+p = ggplot(plot5_data, aes(estimate))
+
+# Add the empirical density function as well as a vertical line and save it as p1.
+p1 = p + stat_ecdf() + geom_vline(xintercept = -0.005, col = "red") + stat_function(fun = pnorm, col = "green", arg = list(mean = 0, sd = 0.0016))
+#>
+```
+
+In `p2` it is your turn to add an empirical density function with the command `geom_density()` as well as the red vertical line. Fill the gaps.
+
+```{r "6_4_Random_year_of_Globo_entry__4"}
+#< task
+# Your turn. Replace the ??? to add the density function as well as the vertical line. Do not forget to delete the comment sign afterwards.
+# p2 = ??? + ??? + ??? + stat_function(fun = dnorm, col = "green", arg = list(mean = 0, sd = 0.0016))
+#>
+p2 = p + geom_density() + geom_vline(xintercept = -0.005, col = "red") + stat_function(fun = dnorm, col = "green", arg = list(mean = 0, sd = 0.0016))
+#< hint
+display("You can have a look at p1 to know the syntax you need. There is just a small change to make. Also: Have you deleted the # sign?")
+#>
+```
+
+As a last step we plot these two above each other using the package `gridExtra`. This is also your turn as you already have learnt how to do this.
+
+```{r "6_4_Random_year_of_Globo_entry__5",fig.height=7, fig.width=8}
+#< task
+# Load the package gridExtra to plot multiple plots.
+library(gridExtra)
+
+# Your turn. Plot both charts at the same time. 
+
+#>
+grid.arrange(p1, p2)
+#< hint
+display("To show multiple plots at the same time remember to use grid.arrange().")
+#>
+```
+
+In both graphs we see that the red line clearly lies outside the black ones. They do not even have a visible intersection. As the black line is indicating our estimates with the random Globo coverge years which seem to be very different from our real estimator showed by the red line, we can infer, that there is only very low probability that the effect we found was randomly that high. What we can also see is that the placebo coefficients seem to be normally distributed with an expected value of zero. All in all we can conclude that if the years are randomly chosen on average they do not have an effect on fertility that is as high as the one we have observed in the real data. This makes us believe in our hypothesis even more. 
+
+*This exercise refers to page 22 - 23 in the paper.*
+
+## Exercise 7 Robustness checks 
+
+### 7.1 Adding controls
+
+To check if the results are robust we add controls that could be correlated with fertility. In particular we add the three controls owning a TV set, receiving electricity and if the woman was employed. The problem is that there might be reverse causality. We have already thought about this problem when we have considered the woman's education. It might be the case that a woman chose the amount of education given if she had children or not. For the three mentioned variables we could think of endogeneity problems as follows: Owning a TV set could be endogeneous because we could imagine for example that in a family with children the woman was less likely to have enough money left to buy a TV set. Then the number of births influenced the ownership of a television. However owning a TV set is necessary to be able to watch novelas so we should include it in our regression. Costs also play a role when you think about a family with children in comparison to a couple without children. It could be that the family had less money left to buy or rent an accommodation that received electricity. Receiving electricity might therefore be an outcome variable. This control variable is already included in the other regressions as part of the variable wealth but we want to find out if it had a strong effect on its own. Woman's employment could also be an outcome variable as it is more difficult for a woman who has a child to work than for someone without children. To look at the output you click *check* and wait a few seconds.
+<br>*We are using a sample with more observations here as the other one is too small to obtain significant results.*
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "7_Robustness_checks__",optional=TRUE, results='asis'}
+#< task
+# Load the data and the package.
+load("Indiv_sample1")
+library(lfe)
+
+# Run the regressions.
+# Considering owning a TV set.
+reg1 = felm(B~globocoverage1+tv+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code, weights = Indiv_sample1$weight, data = Indiv_sample1)
+
+# Considering receiving electricity.
+reg2 = felm(B~globocoverage1+electricity+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code, weights = Indiv_sample1$weight, data = Indiv_sample1)
+
+# Considering women's employment.
+reg3 = felm(B~globocoverage1+employed+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code, weights = Indiv_sample1$weight, data = Indiv_sample1)
+
+# Output.
+stargazer(reg1, reg2, reg3, type="html")
+#>
+```
+
+<br>Comparing the three regressions we can see that the coefficient of `globocoverage1` stays more or less at the same level, namely around $-0.006$. It also stays significant in all three regressions. Moreover we can see that the ownership of a TV set was associated with a decrease in probability of giving birth of about $1.2$ percentage points. This influence is significant on the one percent level. When the household received electricity the chance to give birth decreased by $0.6$ percentage points. From the third regression we can further compute that woman's employment was associated with a decrease of probability of giving birth of about $2$ percentage points. All in all we can see from these three regressions that our results are robust to these three added variables. Are there other variables the authors did not consider? What about contraceptives for example? They are not included in the regression but should have been available such that the women could decide about the number of children they wanted to have. However the use of contraceptives is maybe an outcome variable. The demand raises as the people desire smaller families. In Brazil contraception was available during the analyzed time. Moreover sterilization was the common way of contraception, which matches to the stopping behavior. Abortion was illegal in Brazil so there is no official information about how often it occurred. As the number of children alive was reported in the census and not the number of registered births this is probably no problem for our analysis. Another factor we should think of because it might form a missing influence are family state programs. If they existed they would have probably been correlated both with Globo coverage and with the birth rate. However the authors explain that during the military regime from 1964 to 1985 there were no family programs at all as military issues like protecting borders distracted them. Advertisement for contraception was even illegal. All in all family programs do not seem to not form a problem for our analysis but it is important to have thought about it. 
+
+
+### 7.2 Use a different dependent variable
+
+In the second part of the robustness checks we want to choose a different dependent variable. Until now we have used the variable `B` indicating births, more particular if the observed woman gave birth during the last year. Now we use the variable `child_alive` that means we are considering the number of living children for a woman aged $15$ to $49$ in a given census year. In comparison to the variable we have used before this variable is indicating the stock of children and does not tell us when the child was born. However it was asked in the census directly so we do not need to transform the data. Click *check* to run the regressions.
+
+```{r "7_Robustness_checks___2",results='asis'}
+#< task
+# Load the data and filter it.
+library(foreign)
+AMC_Data = read.dta("AMC_Data.dta")
+AMC_Data = filter(AMC_Data, geoarea < 5994)
+
+# Run the regressions.
+# Considering time fixed effects but no state fixed effects.
+reg4 = felm(child_alive~globocoverage1 | year, data = AMC_Data) 
+
+# Considering time and state fixed effects at the AMC level.
+reg5 = felm(child_alive~globocoverage1 | year+amc_code | 0 | amc_code, data = AMC_Data)
+
+# Considering many control variables as well as time fixed effects but no state fixed effects.     
+reg6 = felm(child_alive~globocoverage1+yrsedu_head+age+agesh1524+agesh2534+married+wealth_noTV+catholic+rural+Doctors+ipc_renta | year | 0 | amc_code, data = AMC_Data)
+
+# Considering many control variables as well as time and state fixed effects at the AMC level.
+reg7 = felm(child_alive~globocoverage1+yrsedu_head+age+agesh1524+agesh2534+married+wealth_noTV+catholic+rural+Doctors+ipc_renta | year+amc_code | 0 | amc_code, data = AMC_Data)
+
+# Output.
+stargazer(reg4, reg5, reg6, reg7, type = "html")
+#>
+```
+
+<br>Switching from the first to the second column in which state fixed effects are included the coefficient of Globo coverage declines from approximately $-0.3$ to $-0.03$. Including controls but no state fixed effects in the third column the effect is slightly higher than in the last regression in which state fixed effects are considered as well as controls that are added. The coefficient stays around the same level of $0.03$. All regressions have in common that the infuence of Globo coverage is negative and significant. No matter if we just include time fixed effects or also state fixed effects and other controls. This means that also when we use a different dependent variable our results stay significant. As the dependent variable `child_alive` is different from `B` we cannot compare the results quantitatively. We cannot say more than they are also negative and also significant. We can however conclude that our results are robust to a different dependent variable.
+
+*This exercise refers to page 23 - 25 in the paper.*
+
+## Exercise 8 TV or Novelas 
+
+Until now we have always talked about telenovelas but have not considered that watching novelas is connected to watching TV in general. Why can we say that novelas in particular had an effect on fertility but not just watching TV in general? Could it not be that people spent their time differently when they had a TV set? To check if novelas or television form the causal effect on behavior the following exercises are constructed. 
+
+### 8.1 Matching names
+
+The authors use a really interesting idea namely they want to find out if people that lived in regions that received the Globo signal were more likely to name their children like the main characters in the novelas. They hereto use data from students in the fifth grade in Brazil in 2004 that were typically born in 1994. They compare the names for a $10 \%$ random sample of the AMCs. The authors generate a dummy variable called `Names` which equals $1$ if at least one of the top $20$ names from the students is one of the names of a main character in 1994. Read the steps for preparing the data and click *check* to be able to go on.
+
+#### Step 1: Preparing the data
+
+```{r "8_TV_or_Novelas__"}
+#< task
+# Load the data.
+AMC_Data = read.dta("AMC_Data.dta")
+     
+# Choose the census year 1991 as this contains the latest information about the AMCs.
+AMC_Data_2 = filter(AMC_Data, year == 1991)
+     
+# Change the globocoverage1 column as we want the dummy variable to be equal to 1 also if they received the signal in 1994 as there could still be an influence on naming when the woman is pregnant. If there is an NA change it to zero.
+AMC_Data_2$globocoverage1 = ifelse(AMC_Data_2$yr1stcov <= 1994, 1, 0 )
+AMC_Data_2$globocoverage1[is.na(AMC_Data_2$globocoverage1)] = 0
+
+# Load the data.
+Names = read.dta("Names.dta")
+
+# Join the two data frames. We do not want any missing values.
+data = inner_join(Names, AMC_Data_2, by = c("amc_code")) 
+     
+# Create a new column with the logarithm of the total population such that we can interpret the coefficient easier later on.
+data$lnpop = log(data$pop_tot)
+#>
+```
+
+#### Step 2: Comparing the means
+
+As a next step we want to compare the means between the group in which the people received the Globo signal and the group that did not. We use a t-test for that. Click *check* to evaluate the t-test.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "8_TV_or_Novelas___2",optional=TRUE}
+#< task
+# Run the t-test.
+t.test(Names~globocoverage1, data = data)
+#>
+```
+
+When we estimate the p-value we test here if there is a significant difference between the means. Mathematically written: $H_{0} : \mu_{1} = \mu_{2}$ versus $H_{1} : \mu_{1} \neq \mu_{2}$. When you look at the output: Can you reject the null hypothesis at the $5 \%$ level?
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "8_TV_or_Novelas___3",optional=TRUE}
+#< task
+# Can you reject the null hypothesis at the 5 percent level?  Replace the ??? with "yes" or "no" and do not forget to delete the comment sign afterwards.
+# sol = ???
+#>
+sol = "yes"
+#< hint
+display("The p-value indicates the probability that the null hypothesis is true but we reject it anyway. Also: Have you deleted the # sign?")
+#>
+
+```
+
+#< award "T-test for means!"
+Correct! You can reject the null hypothesis at the 5 % level as the p-value is 0.003 which is smaller than 0.05. You can even reject the null hypothesis at the 1 % level. This means that the probability that actually there is no difference between the groups considering the matching names is smaller than 1 %. We can therefore be quite sure that watching novelas had an influence on naming. This supports our thesis that watching novelas and not just watching TV in general had an influence on people's lives.
+#>
+
+#### Step 3: Regressions on Names
+
+In this step we are going to regress `Names` on `globocoverage1`. We are checking if there is a significant influence on the probability that there were matching names given that the area received the signal and other controls. In the first regression we do not add any fixed effects or controls. In the second we add controls and year fixed effects and in the last one we add state fixed effects as well. Click *check* to run the regressions.
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "8_TV_or_Novelas___4",optional=TRUE, results='asis'}
+#< task
+# Run the regressions.
+# Cosidering no controls nor fixed effects.
+reg1 = felm(Names~globocoverage1 | 0 | 0 | uf_code, data = data)
+
+# Considering controls and time fixed effects.        
+reg2 = felm(Names~globocoverage1+yrsedu_head+wealth_noTV+married+catholic+Doctors+rural+ipc_renta+lnpop | year | 0 | uf_code, data = data)
+
+# Considering controls, time and state fixed effects.     
+reg3 = felm(Names~globocoverage1+yrsedu_head+wealth_noTV+married+catholic+Doctors+rural+ipc_renta+lnpop | year+uf_code | 0 | uf_code, data = data)
+
+# Output.
+stargazer(reg1, reg2, reg3, type = "html")
+#>
+```
+
+<br>You can see that there is a significant effect in all three cases. When we include more and more controls the influence decreases but it stays positive and significant. Looking at regression $3$ we know that the probability that there was a matching name increased for about $18 \%$ when the area received the Globo signal. When you imagine that this could be you and your mother it comes clear how great the effect actually is.  The probability that your name is the same like in a telenovela increases for about $18 \%$ if she watches novelas. This is very much I would say considering also that the characters' names were not common before.
+
+
+### 8.2 Social mobility
+
+As another check if fertility declined due to watching TV in general or novelas in particular, the authors want to find out if it declined stronger when the plot contained upward social mobility. They run a regression including the interaction term $socialmobility*globocoverage1$ that is saved in the variable `cov1someSocmob1F8`. Click *check* to have a look at the output.
+<br>*We use a different sample here as the other ones to not contain the interaction term as a column.*
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "8_TV_or_Novelas___5",optional=TRUE, results='asis'}
+#< task
+# Load the data.
+load("Indiv_socmob_age")
+
+# Run the regression.
+reg1 = felm(B~globocoverage1+cov1someSocmob1F8+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code,  weights = Indiv_socmob_age$weight, data = Indiv_socmob_age)
+
+# Output.
+stargazer(reg1, type = "html")
+#>
+```
+
+<br>We can see a negative effect of the interaction term on fertility. As our sample is too small for this regression we do not find a significant effect. Even if we doubled the number of observations the coefficients would not become significant. This is why we compare our estimates to the ones by the authors who obtaines approximately the same result. Their coefficient is $-0.0032$ and it is significant at the $5$ percent level. Interpreting our result shows that fertility declined stronger when the plot contained upward social mobility. The authors state that the viewers probably found the novelas more pleasant and were therefore maybe more affected by these plots. As the plots vary across years, it would not make much sense to explain this difference by a monotonic trend or by watching TV in general as this could not explain differents strengths of influences over the years and plots.
+
+
+### 8.3 Matching age
+
+In this section the authors examine if the same plot could have affected women differently strong. They check if given the woman was about the same age as the female character the influence on fertility was stronger in comparison to those that were not. In this case the viewers could easier identify with the character. The authors create a dummy variable `match1` that is equal to $1$ if the woman is within $4$ years of the first female characters' ages. Afterwards they create the variable `cov1match` that captures the interaction term $match1 * globocoverage1$. Let us run the following regression by clicking *check* and look at the output.
+<br>*We use a different sample here as the other ones to not contain the interaction term as a column.*
+<br>*You do not need to solve this exercise to be able to go on with the next task.*
+
+```{r "8_TV_or_Novelas___6",optional=TRUE, results='asis'}
+#< task
+# Load the data.
+load("Indiv_socmob_age")
+
+# Run the regression.
+reg2 = felm(B~globocoverage1+cov1match+married+yrsedu_head+wealth_noTV+catholic+rural+Doctors+ipc_renta+age+agesq+stock+stocksq | year+amc_code | 0 | amc_code, weights = Indiv_socmob_age$weight, data = Indiv_socmob_age)
+
+# Output.
+stargazer(reg2, type = "html")
+#>
+```
+
+<br>The regression results reveal the effect we wanted to find out. When you look at the coefficient of `cov1match` which is approximately $-0.002$ you see that this factor is negative but not significant. Here we also obtain a coefficient that is approximately as high as the one by the authors ($-0.003$) and also this time the result by the authors is significant at the $1$ percent level. We can see that the effect of Globo coverage is therefore stronger for women that were about the same age like the first female character. Explaining this non-linear correlation with a fertility trend would not make much sense. 
+
+We have now executed a lot of robustness checks and found that our results are robust such that we can stick to our hypothesis that telenovelas had an effect on people's behavior that resulted in a fertility decline. Let us finally get to the conclusion in the next exercise.
+
+*This exercise refers to page 3, 25 - 29 in the paper.*
+
+
+## Exercise 9 Conclusion 
+
+### Content
+
+Analyzing the data we could see that watching TV and in particular telenovelas had a negative and significant effect on fertility in Brazil. This effect was heterogenial and stronger for less educated and less wealthy women. We have also seen that it was stronger for women in the end of their childbearing age, which means that novelas had a stronger influence on stopping behavior, than delaying first births. If there was just a correlation or if the effect was causal was tested with a couple of falsification tests as well as robustness checks. We found that the findings are robust and could not be explained by monotonic trends. 
+
+The results found are on first sight not important as they come from past Brazil and specific TV series. Nevertheless the authors state that the influence found could be transferred to other developing countries considering also other themes like discrimination of minorities, HIV and other topics people should be informed about. In developing countries newspapers are often limitedly available and literacy is low so the main medium people get information about life outside their villages are TVs. Television is a mass medium with the potential to reach many people at quite low costs. Development policies could take use of this channel. 
+<br> As seen from the analysis people adapted information wrapped in soap opera plots easily and quite quickly to their daily life. When they could identify with the characters the effect on behavior was even stronger as seen in the last exercise. This is why for educational reasons the channels would not need to air documentaries to inform about the topics they want to cover. On the other hand, watching telenovelas had and still has a very high status in Brazil for all socioeconomic statuses. This is probably incomparable to other countries such that the observable effect might somewhere else be not as high as expected having the observations from Brazil in mind.
+
+Jensen and Oster (2009) found in a comparable analysis in India that the status of women rose when the village received the TV signal. They measured the socioeconomic status with three variables: gender attitudes measured by men beating women, the preference for sons and fertility. Considering the attitude towards men beating women the results showed that the number of situations where violence was reported as accepted decreased. Moreover the preference for sons decreased and the fertility declined as well for about $3.7$ percentage points. All in all the authors follow from these observations that women’s status rose.  Taking this result into accounts and transferring it to our analyzed paper, we should rethink if we made a mistake when we ran our regressions in which we included wealth and education as measurements of socioeconomic status as control variables. We used the socioeconomic status as independent variable whereas Jensen and Oster (2009) used it as dependent variable. The number of children was used as dependent variable or independent variable respectively. This is one of the main differences between the two papers. But what is correct? Does the socioeconomic status rise when the number of children rises or is it the other way round? And is there a causal relationship or just a correlation? As we have thought about endogeneity problems considering education and wealth in the robustness checks this is not such a huge problem for us. But anyway we should be aware of this difference. There are more differences between these two papers: the fertility in the Indian context was measured by the pregnancy during survey time whereas in the Brazilian context the number of births was computed from census data. Moreover the Jensen and Oster (2009) could not explain if the number of births decreased due to increased spacing in births or rather due to delaying first births. Another difference is that in the Indian context the TV content was not analyzed such that they could only conclude that watching TV in general influenced people’s lives but not watching telenovelas or anything else.
+Having considered the differences let us look at the common results now. Not only the fertility decline but also the fast adaption of TV on daily life decisions was observable in both countries. Moreover all authors find that rural areas were affected stronger by the television. Eventually, the findings by Jensen and Oster (2009) support the idea of using television as a medium of information also in other developing countries.  
+
+### Problem set
+
+If you want to get a quick overview about what you have learnt click *check* one more time.
+
+```{r "9_Conclusion__",results='asis'}
+#< task
+awards(as.html=TRUE)
+#>
+```
+
+#< award "You made it!"
+Congratulation! You worked through this problem set! I hope you have enjoyed this problem set having learnt about programming in R and about the influence of soap operas on fertility in Brazil. If you want to solve more of them you can use this link: <a href="https://github.com/skranz/RTutor" target="_blank">RTutor on
+Github</a>.
+#>
+
+*This exercise refers to page 4 - 5, 29 in the paper.*
+
+
+## Exercise 10 References
+
+### Bibliography
+
+* Becker, G.S. (1992): The Economic Way of Looking at Life. Nobel Lecture. December 9. 1992, Chicago, John M. Olin Law & Economics Working paper No. 12. (2nd Series). Internet: http://m.law.uchicago.edu/files/files/12.Becker.Econ_.pdf (07/14/2015)
+
+* Faria, V., Potter, J. (1999): Television, Telenovelas, and Fertility Change in North-East Brazil. In: Leete, R. (Hrsg.): Dynamics of Values in Fertility Change. Oxford, NY: Oxford University Press, 252-72
+
+* Heuser, J. U. (1992): Ein Ökonom auf Abwegen. Internet: http://www.zeit.de/1992/43/ein-oekonom-auf-abwegen (06/22/2015) 
+
+* Jensen, R., Oster, E. (2009): The Power of TV: Cable Television and Women’s Status in India, Quarterly Journal of Economics 124 (3): 1057-94. DOI: 10.1162/qjec.2009.124.3.1057
+
+* Kunath, W. (2014): Telenovelas sind Brasiliens Exportschlager. Internet: http://www.stuttgarter-zeitung.de/inhalt.fernsehen-telenovelas-sind-brasiliens-exportschlager.11550a4d-f5b6-4bc9-8e9d-6ba14c60ed4b.html (06/22/2015)
+
+* La Ferrara, E., Chong, A. and Duryea, S. (2012) a: "Soap Operas and Fertility: Evidence from Brazil: Dataset." American Economic Journal: Applied Economics, 4(4): 1-31. DOI: 10.1257/app.4.4.1 
+
+* La Ferrara, E., Chong, A. and Duryea, S. (2012) b: "Soap Operas and Fertility: Evidence from Brazil." American Economic Journal: Applied Economics, 4(4): 1-31. DOI: 10.1257/app.4.4.1 
+
+* Ligges, U. (2008): Programmieren mit R. 3. Auflage, Berlin Heidelberg: Springer-Verlag. 
+
+* Oeropa.at (2015): Rede Globo – ein brasilianischer TV-Sender. Internet:
+http://www.oeropa.at/rede-globo-ein-brasilianischer-tv-sender/ (05/17/15)
+
+* Rede Globo international (2015): Globo in Brazil. Internet: http://redeglobo.globo.com/Portal/institucional/foldereletronico/ingles/g_globo_brasil.html (06/09/2015)
+
+* Rede Globo international (2015): Globo in the world. Internet: http://redeglobo.globo.com/Portal/institucional/foldereletronico/ingles/g_globo_mundo.html (06/09/2015)
+
+* Rede Glogo international (2015): Dramaturgy. Internet: http://redeglobo.globo.com/Portal/institucional/foldereletronico/ingles/g_conteudo_dramaturgia.html (06/09/2015)
+
+* Stock, J. H., Watson, M. W. (2007): Introduction to Econometrics. Second Edition, Boston: Pearson Education Inc.
+
+* U.S. Department of Commerce (1993): Population Trends. Brazil. Internet: https://www.census.gov/population/international/files/ppt/Brazil93.pdf (05/26/2015)
+
+* von Auer, L. (2007): Ökonometrie. Eine Einführung. 4. Auflage, Berlin Heidelberg: Springer-Verlag.
+
+* Wooldridge, J. M. (2006): Introductory Econometrics. A Modern Approach. Third Edition, Mason: Thomson South-Western.
+
+
+### R and packages in R
+
+* Auguie, B. (2012): gridExtra. functions in Grid graphics, R package version 0.5.1 http://cran.r-project.org/web/packages/gridExtra/index.html 
+
+* Gaure, S. (2015): lfe. Linear Group Fixed Effects, R package version 2.2-1699 http://cran.r-project.org/web/packages/lfe/index.html
+
+* Hlavac, M. (2015): stargazer. Well-Formatted Regression and Summary Statistics Tables,
+ R package version 5.2. http://CRAN.R-project.org/package=stargazer
+
+* Kranz, S. (2014): regtools. Tools for presenting regressions results, R package version 0.1 https://github.com/skranz/regtools 
+
+* Kranz, S. (2015): RTutor. Creating R problem sets with automatic assement of student's solutions, R package version 2015.06.06 https://github.com/skranz/RTutor 
+
+* R Core Team (2015): foreign. Read Data Stored by Minitab, S, SAS, SPSS, Stata, Systat, Weka, dBase, ... R package version 0.8-63 http://cran.r-project.org/package=foreign 
+
+* R Development Core Team (2015). R. A language and environment for
+statistical computing, R Foundation for Statistical Computing, Vienna, Austria.  http://www.r-project.org 
+
+* Wickham, H., Chang, W. (2015): ggplot2. An Implementation of the Grammar of Graphics, R package version 1.0.1 http://cran.r-project.org/web/packages/ggplot2/index.html
+
+* Wickham, H., Francois, R. (2015): dplyr. A Grammar of Data Manipulation, R package version 0.4.1 http://cran.r-project.org/web/packages/dplyr/index.html 
+
+### Licence
+
+Author: Clara Ulmer
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Namensnennung-Nicht kommerziell 4.0 International Lizenz</a>.

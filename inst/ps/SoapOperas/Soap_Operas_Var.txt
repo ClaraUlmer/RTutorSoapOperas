@@ -1,0 +1,76 @@
+orgvar | var | descr
+
+amc_code | amc_code | Coding for the geographic area by AMC
+year | year | Year in which the observation was recorded
+n | n | Number of observations or average number of births
+ncum | ncum | Cumulated number of AMCs that were covered
+id | id | Identification number from the observed woman
+rural | rural | Dummy variable that is equal to 1 if the area was rural
+electricity | electricity | Dummy variable that is equal to 1 if the household had electricity
+tv | tv | Dummy variable that is equal to 1 if the household owned a TV
+weight | weight | Used for weighted least squares estimates
+catholic | catholic | Dummy variable that is equal to 1 if the woman was catholic
+yrs_edu |  yrs_edu | Years of woman's education
+married | married | Dummy variable that is equal to 1 if the woman was married
+employed | employed | Dummy variable that is equal to 1 if the woman was working during the previous 12 months
+yrsedu_head | yrsedu_head | Years of education from the family head. 
+uf_code | uf_code | Coding of the geographic area by state
+age | age | Woman's age
+B | B | Dummy variable that is equal to 1 if the woman gave birth during the last year
+stock | stock | Number of children the woman already had
+globocoverage1 | globocoverage1 | Dummy variable that is equal to 1 if the AMC was reached by the Globo signal one year before, to account for the duration of pregnancy
+yrsexp | yrsexp | Number of years the woman was able to watch the novelas 
+yrsexp1019 | yrsexp1019 | Number of years the woman was able to watch the novelas at the age of 10 to 19
+yrsexp2029 | yrsexp2029 | Number of years the woman was able to watch the novelas at the age of 20 to 29
+yrsexp3039 | yrsexp3039 | Number of years the woman was able to watch the novelas at the age of 30 to 39
+yrsexp4049 | yrsexp4049 | Number of years the woman was able to watch the novelas at the age of 40 to 49
+geoarea80 | geoarea80 | AMC size in 1980
+ipc_gdp | ipc_gdp | Probably used to generate the index of potential consumption
+ipc_renta | ipc_renta | Index of potential consumption indicating the purchasing power 
+wealth_noTV | wealth_noTV | Computed from a set of dummy variables about the housing quality and ownership of persistent goods without considering TV ownership
+Doctors | Doctors | Number of doctors in the AMC for every 1000 people
+agesq | agesq | Woman's age squared divided by 1000
+stocksq | stocksq | Stock of children the woman already had squared divided by 1000
+area | area | Value for the AMC code
+yr1stcov | yr1stcov | Year the AMC was first reached by the TV signal
+Blag | Blag | Neither used nor described by the authors
+globocov1lead | globocov1lead | Dummy variable that is equal to 1 in period t if the area received the signal one year later in t+1
+cov1wealth | cov1wealth | Interaction term wealth_noTV*globocoverage1
+cov1eduhd | cov1eduhd | Interaction term yrsedu_head*globocoverage1
+cov1edu | cov1edu | Interaction term yrs_edu*globocoverage1
+title | title | Title of the soap opera
+time | time | Time the soap opera was aired
+fertility | fertility | Number of children the character had
+marriage | marriage | Dummy variable that is equal to 1 if the character was married
+divorce | divorce | Indicating if the character was divorced or not
+socmob | socmob | Indicating if the novela treated social mobility issues
+year_start | year_start | Year the soap opera was aired for the first time
+divsep | divsep | Dummy variable that is equal to 1 if the character was divorced or separate
+child_alive | child_alive | Average number of children that were born alive and reported for a given AMC, cohort and census wave 
+cohort | cohort | Woman's cohort
+wave | wave | Census wave: 1970, 1980 or 1991
+pop_tot | pop_tot | Total population
+agesh1524 | agesh1524 | Average share of the population that was between 15 and 24 years old
+agesh2534 | agesh2534 | Average share of the population that was between 25 and 34 years old
+mean_child | mean_child | Average number of children 
+row.names | row.names | The independent variables that we have used in the regression
+coeff | coeff | Coefficient of the variable
+index | index | Numbers for the variables that start at -9. Needed to be able to filter the data frame later on
+p_2.5 | p_2.5 | Lower limit of the confidence interval
+p_97.5 | p_97.5 | Upper limit of the confidence interval
+B70 | B70 | Average number of births in 1970
+globoplacebo1 | globoplacebo1 | Dummy variable that is equal to 1 if the neighbor AMC received the signal by the given year
+uf | uf | Coding of the geographic area by state
+Names | Names | Dummy variable that is equal to 1 if at least one of the top 20 names from the students is one of the names of a main character in 1994
+lnpop | lnpop | Logarithm of the total population
+Age1NovelA | Age1NovelA | First female character's age in the previous year from novela A. Novela A was aired first in the year before 
+Age1NovelB | Age1NovelB | First female character's age in the previous year from novela B. Novela B was aired second in the year before
+meanAgeF8 | meanAgeF8 | Average age of the first female character from the 8 p.m. novela that year
+someSocmobF8 | someSocmobF8 | Dummy variable that is equal to 1 if at least one female character from the 8 p.m. novela had social mobility that year
+meanAge1F8 | meanAge1F8 | Average age of the first female character from the 8 p.m. novela in the previous year
+someSocmob1F8 | someSocmob1F8 | Dummy variable that is equal to 1 if at least one female character from the 8 p.m. novela had social mobility the year before
+match1 | match1 | Dummy variable that is equal to 1 if the woman was within 4 years of a main female character's age
+match1mean8 | match1mean8 | Dummy variable that is equal to 1 if the woman was within 4 years of the average age of the female characters from the year before
+cov1match | cov1match | Interaction term match1*globocoverage1
+cov1matchmean8 | cov1matchmean8 | Interaction term match1mean8*globocoverage1
+cov1someSocmob1F8 | cov1someSocmob1F8 | Interaction term someSocmob1F8*globocoverage1
